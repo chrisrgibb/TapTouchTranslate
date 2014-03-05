@@ -1,29 +1,40 @@
 package com.example.messageclient;
 
+import java.text.BreakIterator;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.text.Selection;
+import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class WriteMessageActivity extends Activity {
 	EditText writeMessage;
 	CharSequence wordToLookup = " f";
-	float touchX;
-	float touchY;
-	
+	int touchX;
+	int touchY;
 	
 	public void selectWord(CharSequence word){
 		wordToLookup = word;
+	
 	}
 	
 	public void printWord(){
 		if(wordToLookup!=null){
 			System.out.println("HI "  + wordToLookup);
+		
 		}
 	}
 	
@@ -51,114 +62,122 @@ public class WriteMessageActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				if(event.getAction() == MotionEvent.ACTION_DOWN){
-					touchX = event.getX();
-					touchY = event.getY();
+					  touchX = (int) event.getX();
+					  touchY = (int) event.getY();
+					
 				}
+				
+				//System.out.println("long touch x:" + touchX + " y : " + touchY);
+				// String definition = "Clickable words in text view ".trim();
+			
 				EditText e = (EditText) v;
-				
-				
-				int start = e.getSelectionStart();
-				int end = e.getSelectionEnd();
-				CharSequence finalstring = e.getText().toString().substring(start, end);
-				CharSequence otherstring = e.getText().subSequence(start, end);
-				String myString = getStringFromText(e.getText(), start);
-				e.performClick();
-				e.performClick();
-							
-				
+				String definition = e.getText().toString();
+//				e.setMovementMethod(LinkMovementMethod.getInstance());
+//			    LinkMovementMethod.getInstance();
+				Spannable spans = (Spannable ) e.getText();
+				int index = Selection.getSelectionStart(spans);
+			
+				BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
+				iterator.setText(definition);
+				int start = iterator.first();
+				System.out.println(BreakIterator.DONE);
+				for(int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()){
+					String possibleWord = definition.substring(start, end);
+					if( Character.isLetterOrDigit(possibleWord.charAt(0))){
+						
+						ClickableSpan clickspan = getClickableSpan(possibleWord);
+						
+						System.out.println(start + "  to "  +end  + " index " + index );
+						
+						if( index > start && index < end){
+							clickspan.onClick(e);
+							spans.setSpan(clickspan, start, end,  Spannable.SPAN_INTERMEDIATE);
+						}
+					}
+				}
 				return false;
+			}
+			
+			//private void isWordClickedOn(){
+				
+				
+				
+				
+		//	}
+			private ClickableSpan getClickableSpan(final String word) {
+				System.out.println(" GET CLICKABLE SPAN");
+				return new ClickableSpan() {
+					final String mWord;
+					{
+						mWord = word;
+					}
+
+					@Override
+					public void onClick(View widget) {
+						Log.d("tapped on:", mWord);
+						Toast.makeText(widget.getContext(), mWord,
+								Toast.LENGTH_SHORT).show();
+					}
+
+					public void updateDrawState(TextPaint ds) {				
+						super.updateDrawState(ds);
+					}
+
+				};
 			}
 		});
 
+		
 	
 		writeMessage.setOnLongClickListener(new OnLongClickListener(){
 
 			@Override
 			public boolean onLongClick(View v) {
-				System.out.println("long touch x:" + touchX + " y : " + touchY);
 				
-				WriteMessageActivity.this.printWord();
 				EditText e = (EditText) v;
-				e.moveCursorToVisibleOffset();
-			
-				int start = e.getSelectionStart();
-				int end = e.getSelectionEnd();
-				e.setSelection(start);
-				e.requestFocus();
+				e.setSelection(3);
+				System.out.println("touch x =" + WriteMessageActivity.this.touchX);
+				//Toast.makeText(this, "Hello" , Toast.LENGTH_SHORT);
 				
-				CharSequence finalstring = e.getText().toString().substring(start, end);
-				System.out.println("Write Message " + finalstring);
-				WriteMessageActivity.this.selectWord(finalstring);
+			
 				// TODO Auto-generated method stub
 				return false;
 			}
+			
+			private ClickableSpan getClickableSpan(final String word) {
+				return new ClickableSpan() {
+					final String mWord;
+					{
+						mWord = word;
+					}
+
+					@Override
+					public void onClick(View widget) {
+						Log.d("tapped on:", mWord);
+						Toast.makeText(widget.getContext(), mWord,
+								Toast.LENGTH_SHORT).show();
+					}
+
+					public void updateDrawState(TextPaint ds) {
+						super.updateDrawState(ds);
+					}
+
+				};
+			}
+			
+			
 		});
-		
-		
-//		writeMessage.setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				System.out.println("on click");
-//				EditText e = (EditText) v;
-//				
-////				int start = e.getSelectionStart();
-////				int end = e.getSelectionEnd();
-////				CharSequence finalstring = e.getText().toString().subSequence(start, end);
-////				System.out.println(e.getText());
-////				System.out.println("start = " + start + " end = " + end) ;
-////				
-//			
-//				int start = e.getSelectionStart();
-//				int end = e.getSelectionEnd();
-//				CharSequence finalstring = e.getText().toString().substring(start, end);
-//				CharSequence otherstring = e.getText().subSequence(start, end);
-//				System.out.println("start = " + start + " end = " + end) ;
-//				System.out.println(otherstring);
-//				System.out.println("final String = " + finalstring);
-//				
-//				
-//			}
-		
-			
-	
-			
-			
-//		});
-//		writeMessage.setOnFocusChangeListener(new OnFocusChangeListener(){
-//
-////			@SuppressLint("NewApi")
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//				System.out.println("Focus changed");
-//				// TODO Auto-generated method stub
-//				if(hasFocus){
-//					 
-//					EditText e = (EditText) v;
-//					System.out.println(e);
-//	              //  int sSelection = ((EditText)v).getText.ToString().getSelectionStart(); 
-//	               // int eSelection = ((EditText)v)getText.ToString().getSelectionEnd(); 
-//	               // String sString = string.substring(sSelection, eSelection);
-//			//		e.getText().g
-////					e.setTextIsSelectable(true); // might not work on this api needs min api 11 to work
-////				System.out.println(	e.getSelectionStart() + "start" ) ;
-//				}
-//			}
-//			
-//		});
-	
 	}
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View view, 
 					ContextMenu.ContextMenuInfo menuInfo){
 		//super.onCreateContextMenu(menu, view, menuInfo);
 		System.out.println("Calling context menu");
 		if(view.getId()==R.id.editTextSMS){
-//			getor
+
 			menu.setHeaderTitle("My TITLE");
-//			menu.
-//			menu.
+
 			MenuItem item = menu.getItem(0);
 			int id = item.getGroupId();
 			menu.removeGroup(id);
