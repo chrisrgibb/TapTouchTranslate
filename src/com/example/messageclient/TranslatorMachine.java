@@ -23,7 +23,6 @@ public class TranslatorMachine {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	public String translate(String text) throws Exception{
