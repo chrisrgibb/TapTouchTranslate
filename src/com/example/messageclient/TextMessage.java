@@ -1,9 +1,14 @@
 package com.example.messageclient;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+
+import android.text.Spannable;
+import android.text.style.ClickableSpan;
 
 public class TextMessage {
 
@@ -42,24 +47,19 @@ public class TextMessage {
 	}
 	
 	public void getOffsetsFromMessage(String message){
-		// TODO steal code from WriteMessageActivity BreakIterator
-		char[] charArray = message.toCharArray();
-		int length = charArray.length;
-		int index = 0;
-		int wordOffset = 0;
-		while(index <= length){
-			if(Character.isLetterOrDigit(charArray[index])){
-				index++;
+	
+		BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
+		iterator.setText(message);
+		int start = iterator.first();
+		// breaks string up into words
+		for(int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()){
+			String possibleWord = message.substring(start, end);
+			if( Character.isLetterOrDigit(possibleWord.charAt(0))){
+				// found word.
+				System.out.println(possibleWord + "(" + start + " , " + end + " )");
 				
 			}
-			if(Character.isSpaceChar(charArray[index]) ){
-				System.out.println(message.substring(wordOffset, index));
-				System.out.println(index==length);
-				index++;
-			}
-//			if(charArray[index])
 		}
-		
 		
 		
 	}
