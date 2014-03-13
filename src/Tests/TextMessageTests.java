@@ -5,19 +5,39 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.example.messageclient.TextMessage;
+import com.example.messageclient.TextMessageWord;
 
 public class TextMessageTests {
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-	
+
 	@Test
 	public void testOffsets(){
 		TextMessage message = new TextMessage("Hi this is my message");
 		System.out.println("===================");
-		message.getOffsetsFromMessage("Hi this is my message");
+		assertEquals(message.getWordAtIndex(0), "Hi");
+		assertEquals(message.getWordAtIndex(1), "Hi");
+		assertEquals(message.getWordAtIndex(2), "");
+		assertEquals(message.getWordAtIndex(8), "is");
+		
+	//	message.getOffsetsFromMessage("Hi this is my message");
+		
+	}
+	
+	@Test
+	public void testTextMessageWord(){
+		// create a new word an test the boundaries of it
+		TextMessageWord tmw = new TextMessageWord("this", 0, 4);
+		assertTrue(tmw.isInBounds(0));
+		assertTrue(tmw.isInBounds(1));
+		assertTrue(tmw.isInBounds(2));
+		assertTrue(tmw.isInBounds(3));
+		assertFalse(tmw.isInBounds(4));
+		assertFalse(tmw.isInBounds(5));
+		
+		
+		TextMessageWord tmw2 = new TextMessageWord("Hi", 0, 2);
+		assertFalse(tmw2.isInBounds(2));
+		
 		
 	}
 

@@ -35,7 +35,7 @@
         android:text="Enter SMS Message : "
         android:textAppearance="?android:attr/textAppearanceLarge" />
  
-    <com.example.messageclient.WriteMessageText
+    <com.example.messageclient.MessageEditText
         android:id="@+id/editTextSMS"
         android:textIsSelectable="true"
         android:selectAllOnFocus="true"

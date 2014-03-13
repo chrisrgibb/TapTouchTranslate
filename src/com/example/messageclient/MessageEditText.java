@@ -14,24 +14,24 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-public class WriteMessageText extends EditText implements OnLongClickListener {
+public class MessageEditText extends EditText implements OnLongClickListener {
 	private float lastDownPositionX;
 	private float lastDownPositionY;
 	PopupWindow popup;
 
-	public WriteMessageText(Context context) {
+	public MessageEditText(Context context) {
 		super(context);
 
 		init(context);
 		// TODO Auto-generated constructor stub
 	}
 
-	public WriteMessageText(Context context, AttributeSet attrs) {
+	public MessageEditText(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 	
-	public WriteMessageText(Context context, AttributeSet attrs, int defStyle) {
+	public MessageEditText(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs);
 		init(context);
 	}

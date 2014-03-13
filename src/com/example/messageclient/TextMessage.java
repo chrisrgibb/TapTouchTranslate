@@ -12,38 +12,22 @@ import android.text.style.ClickableSpan;
 
 public class TextMessage {
 
-//	ArrayList<TextMessageWord> words;
-	HashMap<String, TextMessageWord> words;
+
 	List<TextMessageWord> wordsList = new LinkedList<TextMessageWord>();
 	
 	public TextMessage(){
-		this.words = new HashMap<String, TextMessageWord>();
+	
 	}
 	
-	public TextMessage(String sentance){
-		this.words = new HashMap<String, TextMessageWord>();
-		String[] listOfWords = sentance.split("\\s+");
-		int offset = 0;
-		for(String s : listOfWords){
-			// TODO need to fix offset 
-			offset = sentance.indexOf(s, offset);
-			int end = offset + s.length();
-			words.put(s ,new TextMessageWord(s, offset, end));
-			wordsList.add(new TextMessageWord(s, offset, end));
-			System.out.print(s);
-			System.out.println(" ("+ offset + "," + end + ")");
-		}
+	public TextMessage(String message){
+		getOffsetsFromMessage(message);
+		
 	}
 	
 	public boolean addWord(String word,int startOffset, int endOffset){
-		if(!words.containsKey(word)){
-			words.put(word ,new TextMessageWord(word, startOffset, endOffset));
-			wordsList.add(new TextMessageWord(word, startOffset, endOffset));
-			
-			return true;
-		}else{
+		
 			return false;
-		}
+	
 	}
 	
 	public void getOffsetsFromMessage(String message){
@@ -57,25 +41,20 @@ public class TextMessage {
 			if( Character.isLetterOrDigit(possibleWord.charAt(0))){
 				// found word.
 				System.out.println(possibleWord + "(" + start + " , " + end + " )");
-				
+				TextMessageWord tmw = new TextMessageWord(possibleWord, start, end);
+				wordsList.add(tmw);
+			}
+		}	
+	}
+	
+	
+	public String getWordAtIndex(int offset){
+		for(TextMessageWord w : wordsList){
+			if(w.isInBounds(offset)){
+				return w.getWord();
 			}
 		}
-		
-		
-	}
-	
-	
-	public String getWord(int offset){
-		for(TextMessageWord w : wordsList){
-			
-			
-		}
-		
 		return "";
-	}
-	
-	public HashMap<String, TextMessageWord> getWords(){
-		return this.words;
 	}
 	
 	public void printMessage(){

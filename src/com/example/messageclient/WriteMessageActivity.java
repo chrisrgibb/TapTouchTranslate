@@ -1,8 +1,5 @@
 package com.example.messageclient;
 
-import java.text.BreakIterator;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -21,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class WriteMessageActivity extends Activity {
-	WriteMessageText writeMessage;
+	MessageEditText writeMessage;
 	CharSequence wordToLookup = " f";
 	int touchX;
 	int touchY;
@@ -49,7 +46,7 @@ public class WriteMessageActivity extends Activity {
 		
 		
 	
-		writeMessage = (WriteMessageText) findViewById(R.id.editTextSMS);
+		writeMessage = (MessageEditText) findViewById(R.id.editTextSMS);
 	
 		registerForContextMenu(this.writeMessage);
 		writeMessage.setOnTouchListener(new View.OnTouchListener() {
@@ -72,30 +69,10 @@ public class WriteMessageActivity extends Activity {
 
 				Spannable spans = (Spannable ) e.getText();
 				int index = Selection.getSelectionStart(spans);
-			
-				BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
-				iterator.setText(definition);
-				int start = iterator.first();
-				System.out.println(BreakIterator.DONE);
-				for(int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()){
-					String possibleWord = definition.substring(start, end);
-					if( Character.isLetterOrDigit(possibleWord.charAt(0))){
-						
-						ClickableSpan clickspan = getClickableSpan(possibleWord);
-						
-//						System.out.println(start + "  to "  +end  + " index " + index );
-						textmess.addWord(possibleWord, start, end);
-						if( index > start && index < end){
-							
-//							int positionOfClick = writeMessage.getOffsetForLastDownPosition();
-//							System.out.println("positionOfClick : " + positionOfClick);
-							spans.setSpan(clickspan, start, end,  Spannable.SPAN_COMPOSING);
-							
-						}
-					}
-				}
-//				System.out.println("================================");
-//				System.out.println("END OF LONG TOUCH");
+				
+				
+				
+				
 				textmess.printMessage();
 				System.out.println("touch : " +countOnTouch);
 				return false;

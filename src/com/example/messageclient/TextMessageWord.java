@@ -17,9 +17,12 @@ public class TextMessageWord {
 		return word + "(" + start + "," + end + ")";
 	}
 	
+	public String getWord(){
+		return word;
+	}
+	
 	public boolean isInBounds(int offset){
-		
-		return offset > start && offset < end;
+		return offset >= start && offset < end;
 	}
 		
 }
