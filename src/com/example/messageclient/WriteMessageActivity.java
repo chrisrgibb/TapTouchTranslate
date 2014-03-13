@@ -27,15 +27,8 @@ public class WriteMessageActivity extends Activity {
 	
 	public void selectWord(CharSequence word){
 		wordToLookup = word;
-	
 	}
 	
-	public void printWord(){
-		if(wordToLookup!=null){
-			System.out.println("HI "  + wordToLookup);
-		
-		}
-	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +56,15 @@ public class WriteMessageActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				
 //				System.out.println("Action = " + event.getAction());
+				switch(event.getAction()){
+				case (MotionEvent.ACTION_DOWN):
+					countOnTouch++;
+					break;
+				case (MotionEvent.ACTION_UP):
+					countOnTouch=0;
+//					System.out.println("UP Button pressed");
+					break;
+				}
 				countOnTouch ++;
 				EditText e = (EditText) v;
 				String definition = e.getText().toString();
@@ -74,32 +76,33 @@ public class WriteMessageActivity extends Activity {
 				
 				
 				textmess.printMessage();
-				System.out.println("touch : " +countOnTouch);
+//				System.out.println("touch : " +countOnTouch);
 				return false;
 			}
 
-			private ClickableSpan getClickableSpan(final String word) {
-				System.out.println(" GET CLICKABLE SPAN" + word);
-				return new ClickableSpan() {
-					final String mWord;
-					{
-						mWord = word;
-					}
-
-					@Override
-					public void onClick(View widget) {
-						Log.d("tapped on:", mWord);
-						Toast.makeText(widget.getContext(), mWord,
-								Toast.LENGTH_SHORT).show();
-					}
-
-					public void updateDrawState(TextPaint ds) {	
-						// comment out to stop drawing links
-//						super.updateDrawState(ds);  
-						
-					}
-				};
-			}
+//			private ClickableSpan getClickableSpan(final String word) {
+//				System.out.println(" GET CLICKABLE SPAN" + word);
+//				return new ClickableSpan() {
+//					final String mWord;
+//					{
+//						mWord = word;
+//					}
+//
+//					@Override
+//					public void onClick(View widget) {
+//						Log.d("tapped on:", mWord);
+//						Toast.makeText(widget.getContext(), mWord,
+//								Toast.LENGTH_SHORT).show();
+//					}
+//
+//					public void updateDrawState(TextPaint ds) {	
+//						// comment out to stop drawing links
+////						super.updateDrawState(ds);  
+//						
+//					}
+//				};
+//			}
+		
 		});
 		
 	}
@@ -107,16 +110,16 @@ public class WriteMessageActivity extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
-//		menu.getItem(0);
-		menu.clear();
-		System.out.println("new create menu thing");
-		System.out.println("menu size = "  + menu.size() );
-		menu.add(0, 0, 0, "Lookup Meaning");
-		MenuInflater menuInflator = getMenuInflater();
-		menuInflator.inflate(R.menu.floatage_menu, menu);
-	
+
+		TextMessage tm = writeMessage.getMessageText();
 		
-		//menu.
+		String word = tm.getWordAtIndex(writeMessage.getOffsetForLastDownPosition());
+		
+		menu.clear();
+		menu.add(0, 0, 0, "Lookup Meaning of \'" + word + "\'");
+		//MenuInflater menuInflator = getMenuInflater();
+		menu.setHeaderTitle("MENU FOOL");
+	//	menuInflator.inflate(R.menu.floatage_menu, menu);
 	}
 	
 	@Override

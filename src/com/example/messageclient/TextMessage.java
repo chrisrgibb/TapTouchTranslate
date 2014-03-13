@@ -25,11 +25,16 @@ public class TextMessage {
 	}
 	
 	public boolean addWord(String word,int startOffset, int endOffset){
-		
+		    
 			return false;
 	
 	}
 	
+	
+	/**
+	 * takes a string and breaks it up into words 
+	 * @param message
+	 */
 	public void getOffsetsFromMessage(String message){
 	
 		BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
@@ -47,7 +52,11 @@ public class TextMessage {
 		}	
 	}
 	
-	
+	/**
+	 * 
+	 * @param offset
+	 * @return the word at that index or an empty string.
+	 */
 	public String getWordAtIndex(int offset){
 		for(TextMessageWord w : wordsList){
 			if(w.isInBounds(offset)){

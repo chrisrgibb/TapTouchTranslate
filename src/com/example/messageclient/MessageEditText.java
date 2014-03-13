@@ -5,8 +5,11 @@ import android.content.Context;
 import android.os.Build;
 import android.text.Spannable;
 import android.util.AttributeSet;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,7 +26,6 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 		super(context);
 
 		init(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MessageEditText(Context context, AttributeSet attrs) {
@@ -36,39 +38,35 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 		init(context);
 	}
 
-//	@SuppressLint("NewApi")
-	public void init(Context context) {
+
+	private void init(Context context) {
 		this.setOnLongClickListener(this);
-		popup = new PopupWindow(context);
-		popup.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, 
-				ViewGroup.LayoutParams.WRAP_CONTENT);
-		TextView tv = new TextView(context);
-		tv.setText("Helllo popup");
-		LinearLayout ll = new LinearLayout(context);
-//		ll.setOrientation(1);
-		ll.addView(tv);
-		//popup.setContentView(ll);
-		//this.setTextIsSelectable(true);
 
 	}
 
 	@Override
 	public boolean onLongClick(View v) {
 		int offset = getOffsetForLastDownPosition();
-		System.out.println("from WriteMessageTextgg");
-		System.out.println(getLastDownPositionX() + "  " +getOffsetForLastDownPosition() );
-
-		popup.showAtLocation(v, 0, 20, 20);
-	
+		System.out.println("onLongClick from MessageEditText");
+		System.out.println(getLastDownPositionX() + "  " + offset );
 		return false;
 	}
 	
+	
+	public TextMessage getMessageText(){
+		return new TextMessage(getText().toString());
+	}
 	
 	
 	
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		switch(event.getAction()){
+			
+		case (MotionEvent.ACTION_UP):
+			System.out.println("UP BUtton pressed messageEditText");
+		}
 		System.out.println("on touch event");
 
 		final int action = event.getActionMasked();
@@ -131,20 +129,6 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 		return x;
 	}
 	
-
-	// public OnLongClickListener getSelectableLongClick() {
-	// return new OnLongClickListener() {
-	//
-	// @Override
-	// public boolean onLongClick(View v) {
-	// System.out.println("from WriteMessageText");
-	// // longCliked = true;
-	// // if (lastOnLongClick != null) {
-	// // lastOnLongClick.onLongClick(v);
-	// // }
-	// return false;
-	// }
-	// };
-	// }
+	
 
 }

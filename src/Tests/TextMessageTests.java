@@ -27,13 +27,12 @@ public class TextMessageTests {
 	public void testTextMessageWord(){
 		// create a new word an test the boundaries of it
 		TextMessageWord tmw = new TextMessageWord("this", 0, 4);
-		assertTrue(tmw.isInBounds(0));
-		assertTrue(tmw.isInBounds(1));
-		assertTrue(tmw.isInBounds(2));
-		assertTrue(tmw.isInBounds(3));
+		
+		for(int i = 0; i< 4; i++){
+			assertTrue(tmw.isInBounds(i));
+		}
 		assertFalse(tmw.isInBounds(4));
 		assertFalse(tmw.isInBounds(5));
-		
 		
 		TextMessageWord tmw2 = new TextMessageWord("Hi", 0, 2);
 		assertFalse(tmw2.isInBounds(2));

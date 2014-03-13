@@ -21,6 +21,8 @@ public class TextMessageWord {
 		return word;
 	}
 	
+	
+	
 	public boolean isInBounds(int offset){
 		return offset >= start && offset < end;
 	}
