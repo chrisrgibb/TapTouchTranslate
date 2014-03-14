@@ -48,7 +48,7 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 	public boolean onLongClick(View v) {
 		int offset = getOffsetForLastDownPosition();
 		System.out.println("onLongClick from MessageEditText");
-		System.out.println(getLastDownPositionX() + "  " + offset );
+		//System.out.println(getLastDownPositionX() + "  " + offset );
 		return false;
 	}
 	
@@ -62,12 +62,19 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		// fired everytime you press button
 		switch(event.getAction()){
+		
 			
 		case (MotionEvent.ACTION_UP):
-			System.out.println("UP BUtton pressed messageEditText");
+			System.out.println(" on touch UP BUtton pressed messageEditText");
+			break;
+		case (MotionEvent.ACTION_DOWN):
+			System.out.println(" on touch DOWN BUtton pressed messageEditText");
+			break;
 		}
-		System.out.println("on touch event");
+		
+		//System.out.println("on touch event MessageEditText");
 
 		final int action = event.getActionMasked();
 		if (action == MotionEvent.ACTION_DOWN) {

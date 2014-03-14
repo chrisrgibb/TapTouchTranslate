@@ -54,29 +54,25 @@ public class WriteMessageActivity extends Activity {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				
-//				System.out.println("Action = " + event.getAction());
+
 				switch(event.getAction()){
 				case (MotionEvent.ACTION_DOWN):
 					countOnTouch++;
 					break;
 				case (MotionEvent.ACTION_UP):
 					countOnTouch=0;
-//					System.out.println("UP Button pressed");
+
 					break;
 				}
-				countOnTouch ++;
+				
+			
 				EditText e = (EditText) v;
 				String definition = e.getText().toString();
 
 				Spannable spans = (Spannable ) e.getText();
 				int index = Selection.getSelectionStart(spans);
 				
-				
-				
-				
-				textmess.printMessage();
-//				System.out.println("touch : " +countOnTouch);
+			
 				return false;
 			}
 
@@ -122,14 +118,7 @@ public class WriteMessageActivity extends Activity {
 	//	menuInflator.inflate(R.menu.floatage_menu, menu);
 	}
 	
-	@Override
-	public boolean onPrepareOptionsMenu (Menu menu) {
-		System.out.println("onPrepareOptionsMenu");
-	    //if (isFinalized)
-	     //   menu.getItem(1).setEnabled(false);
-	    return true;
-	}
-	
+
 	
 	int getOffset(MotionEvent event, EditText ed) {
 		Layout layout = ed.getLayout();
