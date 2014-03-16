@@ -21,6 +21,13 @@ public class TextMessageWord {
 		return word;
 	}
 	
+	public int getStartOffset(){
+		return start;
+	}
+	
+	public int getEndOffset(){
+		return end;
+	}
 	
 	
 	public boolean isInBounds(int offset){

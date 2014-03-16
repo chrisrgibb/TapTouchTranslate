@@ -37,6 +37,15 @@ public class TextMessageTests {
 		TextMessageWord tmw2 = new TextMessageWord("Hi", 0, 2);
 		assertFalse(tmw2.isInBounds(2));
 		
+	}
+	
+	@Test
+	public void testStartIndexOfWords(){
+		TextMessage tm = new TextMessage("Hi there this is my sweet sweet message");
+		tm.printMessage();
+		System.out.println(tm.getWordAtIndex(10));
+		assertEquals(tm.getStartOfWordAtIndex(10), 9);
+		assertEquals(tm.getEndOfWordAtIndex(10), 13);
 		
 	}
 

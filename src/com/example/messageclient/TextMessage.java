@@ -24,10 +24,8 @@ public class TextMessage {
 		
 	}
 	
-	public boolean addWord(String word,int startOffset, int endOffset){
-		    
+	public boolean addWord(String word,int startOffset, int endOffset){	    
 			return false;
-	
 	}
 	
 	
@@ -45,7 +43,7 @@ public class TextMessage {
 			String possibleWord = message.substring(start, end);
 			if( Character.isLetterOrDigit(possibleWord.charAt(0))){
 				// found word.
-				System.out.println(possibleWord + "(" + start + " , " + end + " )");
+//				System.out.println(possibleWord + "(" + start + " , " + end + " )"); 
 				TextMessageWord tmw = new TextMessageWord(possibleWord, start, end);
 				wordsList.add(tmw);
 			}
@@ -58,6 +56,7 @@ public class TextMessage {
 	 * @return the word at that index or an empty string.
 	 */
 	public String getWordAtIndex(int offset){
+		// not that efficient but average size of message won't be big hopefully
 		for(TextMessageWord w : wordsList){
 			if(w.isInBounds(offset)){
 				return w.getWord();
@@ -65,6 +64,27 @@ public class TextMessage {
 		}
 		return "";
 	}
+	
+	public int getStartOfWordAtIndex(int offset){
+		// TODO think of better Name
+		for(TextMessageWord w : wordsList){
+			if(w.isInBounds(offset)){
+				return w.getStartOffset();
+			}
+		}
+		return -1;
+	}
+	
+	public int getEndOfWordAtIndex(int offset){
+		// TODO think of better Name
+		for(TextMessageWord w : wordsList){
+			if(w.isInBounds(offset)){
+				return w.getEndOffset();
+			}
+		}
+		return -1;
+	}
+
 	
 	public void printMessage(){
 		for(TextMessageWord t: this.wordsList){

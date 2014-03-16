@@ -11,6 +11,7 @@ public class TranslatorMachine {
 
 		Translate.setClientId(clientId);
 		Translate.setClientSecret(secret);
+		System.out.println("translate");
 		
 	}
 	
