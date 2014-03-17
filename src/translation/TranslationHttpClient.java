@@ -38,6 +38,18 @@ public class TranslationHttpClient {
 //		return new Translation(new JSONObject());
 //	}
 	
+	public String translateAFew(String from, String dest, String phrase){
+		StringBuffer sb = new StringBuffer();
+		sb.append("http://glosbe.com/gapi/translate?from=");
+		sb.append(from);
+		sb.append("&dest=" + dest);
+		sb.append("&format=json&phrase=");
+		sb.append(phrase);
+		sb.append("&pretty=true");
+		String url = sb.toString();
+		return url;
+	}
+	
 	private void doTranslation(){
 		String url = "http://glosbe.com/gapi/translate?from=pol&dest=eng&format=json&phrase=witaj&pretty=true";
 		//String url = "http://glosbe.com/gapi/translate?from=pol&dest=eng&format=json&phrase=witaj&pretty=true";
