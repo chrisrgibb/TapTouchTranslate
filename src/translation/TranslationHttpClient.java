@@ -20,17 +20,11 @@ public class TranslationHttpClient {
 		doTranslation();
 	}
 	
-	public JSONObject getObject(String jsonString){
+	public JSONObject getObject(){
 		JSONObject jObj ;
-//		try {
-//			jObj = new JSONObject(translation);
-//			return jObj;
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 		jObj = (JSONObject) JSONValue.parse(translation);
-		return null;
+		return jObj;
 	}
 	
 //	public Translation getObject(){

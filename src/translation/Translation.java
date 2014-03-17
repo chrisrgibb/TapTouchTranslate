@@ -1,7 +1,7 @@
 package translation;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject ;
 
 public class Translation {
 
@@ -10,8 +10,18 @@ public class Translation {
 	private String meaning;
 	private JSONObject jsonObject;
 	
-	public Translation(JSONObject jObj){
-		jsonObject =jObj;		
+	public Translation(JSONObject jsonObject){
+		this.jsonObject =jsonObject;	
+		this.originalphrase = (String) jsonObject.get("phrase");
+		this.destinationLanguage =(String) jsonObject.get("dest");
+		
 	}
 	
+	public String getPhrase(){
+		return this.originalphrase;
+	}
+	
+	public String getDestinationLanguage(){
+		return this.destinationLanguage;
+	}
 }

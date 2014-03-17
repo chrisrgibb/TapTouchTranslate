@@ -42,7 +42,6 @@ public class WriteMessageActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		System.out.println("WriteMessage Activity");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_message);
 		
@@ -133,11 +132,10 @@ public class WriteMessageActivity extends Activity {
 	
 	private void getTranslate(){
 		TranslationHttpClient client = new TranslationHttpClient();
-//		Translation t = client.getObject();
+
 		System.out.println(client.getTranslation());
 		
-		//System.out.println("Translation = " + tword);
-		
+
 	}
 	
 	private void getTranslation(final String word){
