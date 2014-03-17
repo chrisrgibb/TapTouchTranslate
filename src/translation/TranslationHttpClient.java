@@ -16,7 +16,7 @@ public class TranslationHttpClient {
 	String translation;
 	
 	public TranslationHttpClient(){
-		// translation = getTranslation();
+		 translation = getTranslation();
 		doTranslation();
 	}
 	
@@ -38,7 +38,7 @@ public class TranslationHttpClient {
 //		return new Translation(new JSONObject());
 //	}
 	
-	public String translateAFew(String from, String dest, String phrase){
+	public String composeURL(String from, String dest, String phrase){
 		StringBuffer sb = new StringBuffer();
 		sb.append("http://glosbe.com/gapi/translate?from=");
 		sb.append(from);
@@ -46,7 +46,42 @@ public class TranslationHttpClient {
 		sb.append("&format=json&phrase=");
 		sb.append(phrase);
 		sb.append("&pretty=true");
-		String url = sb.toString();
+		return sb.toString();	
+	}
+	
+	public String translateAFew(String from, String dest, String phrase){
+
+		String url = this.composeURL(from, dest, phrase);
+		
+		try {
+			HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+			con.setRequestMethod("GET");
+			con.setDoInput(true);
+			con.setDoOutput(true);
+			con.connect();
+			
+			StringBuffer buffer = new StringBuffer();
+			InputStream is = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+			String line;
+            while (  (line = br.readLine()) != null ){
+                buffer.append(line + "\r\n");
+            }
+ 
+            is.close();
+            con.disconnect();
+
+            translation = buffer.toString();
+	
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return url;
 	}
 	
