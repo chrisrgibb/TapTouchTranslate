@@ -13,6 +13,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import translation.Translation;
+import translation.TranslationHttpClient;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -121,12 +123,21 @@ public class WriteMessageActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item){
 		if(item.getItemId()==0){
 			System.out.println("first item");
-			getTranslation(writeMessage.getSelectedWord());
-			
+			//getTranslation(writeMessage.getSelectedWord());
+			getTranslate();
 		}
 		writeMessage.setSelection(0);		
 		
 		return false;
+	}
+	
+	private void getTranslate(){
+		TranslationHttpClient client = new TranslationHttpClient();
+//		Translation t = client.getObject();
+		System.out.println(client.getTranslation());
+		
+		//System.out.println("Translation = " + tword);
+		
 	}
 	
 	private void getTranslation(final String word){
@@ -137,6 +148,7 @@ public class WriteMessageActivity extends Activity {
 		      HttpResponse response = client.execute(httpGet);
 		      StatusLine statusLine = response.getStatusLine();
 		      int statusCode = statusLine.getStatusCode();
+		      System.out.println(" Status Code = " +statusCode);
 		      if (statusCode == 200) {
 		        HttpEntity entity = response.getEntity();
 		        InputStream content = entity.getContent();
