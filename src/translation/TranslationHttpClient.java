@@ -35,7 +35,6 @@ public class TranslationHttpClient {
 		translation = url;
 	}
 	
-	
 	public String composeURL(String from, String dest, String phrase){
 		StringBuffer sb = new StringBuffer();
 		sb.append("http://glosbe.com/gapi/translate?from=");
@@ -48,17 +47,10 @@ public class TranslationHttpClient {
 		return URL;	
 	}
 	
-	public boolean setPhrase(String from, String dest, String phrase){
-		// need to check if languages are valid.
-		URL = this.composeURL(from, dest, phrase);	
-		translation = URL; //TODO need to change this 
-		return true;
-	}
 	
 	public TranslationData translateAFew(String from, String dest, String phrase){
 
 		String url = this.composeURL(from, dest, phrase);
-		System.out.println(url);
 		try {
 			HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
 			con.setRequestMethod("GET");

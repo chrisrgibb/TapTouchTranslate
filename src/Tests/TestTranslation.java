@@ -1,14 +1,14 @@
 package Tests;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
 import translation.CountryCodes;
+import translation.Translation;
 import translation.TranslationData;
 import translation.TranslationHttpClient;
 
@@ -35,7 +35,7 @@ public class TestTranslation {
 		String dest = "eng";
 		String phrase = "witaj";
 		TranslationHttpClient client = new TranslationHttpClient();
-		client.setPhrase(from, dest, phrase);
+	
 		client.translateAFew(from, dest, phrase);// TODO change this to get return the translation object from 
 		
 		TranslationData t = new TranslationData( client.getObject());
@@ -53,10 +53,13 @@ public class TestTranslation {
 		String from = CountryCodes.ENGLISH;
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
-		client.setPhrase(from, dest, phrase);
+
 		TranslationData data = client.translateAFew(from, dest, phrase);
+		
+		
 		assertNotNull(data);
-	//	data.printprintprint();
+		
+		assertTrue(data.getTranslations().size()  > 0 );
 		
 
 		

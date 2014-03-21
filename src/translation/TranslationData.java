@@ -84,6 +84,10 @@ public class TranslationData {
 		System.out.println(translations);
 	}
 	
+	public ArrayList<Translation> getTranslations(){
+		return this.translations;
+	}
+	
 	public void printprintprint(){
 		for(Translation t: translations){
 			System.out.println(t.toString());
