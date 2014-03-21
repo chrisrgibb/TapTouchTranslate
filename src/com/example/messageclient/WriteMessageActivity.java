@@ -13,7 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import translation.Translation;
+import translation.TranslationData;
 import translation.TranslationHttpClient;
 import android.app.Activity;
 import android.os.Bundle;

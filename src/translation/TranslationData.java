@@ -5,14 +5,15 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class Translation {
+public class TranslationData {
 
 	private String originalphrase;
 	private String destinationLanguage;
 	private String meaning;
 	private JSONObject jsonObject;
 	
-	public Translation(JSONObject jsonObject){
+	
+	public TranslationData(JSONObject jsonObject){
 		this.jsonObject =jsonObject;	
 		this.originalphrase = (String) jsonObject.get("phrase");
 		this.destinationLanguage =(String) jsonObject.get("dest");
@@ -63,6 +64,8 @@ public class Translation {
 	}
 	
 	
+	
+	
 	@Override
 	public String toString(){
 		return jsonObject.toJSONString();
@@ -74,7 +77,7 @@ public class Translation {
 		String phrase = "witaj";
 		TranslationHttpClient client = new TranslationHttpClient();
 		client.setPhrase(from, dest, phrase);
-		Translation t = new Translation( client.getObject());		
+		TranslationData t = new TranslationData( client.getObject());		
 	}
 	
 }
