@@ -1,7 +1,5 @@
 package translation;
 
-import java.util.HashMap;
-
 public class CountryCodes {
 	
 	public static String ENGLISH = "eng";

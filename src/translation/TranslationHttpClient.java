@@ -55,7 +55,7 @@ public class TranslationHttpClient {
 		return true;
 	}
 	
-	public String translateAFew(String from, String dest, String phrase){
+	public TranslationData translateAFew(String from, String dest, String phrase){
 
 		String url = this.composeURL(from, dest, phrase);
 		
@@ -78,6 +78,8 @@ public class TranslationHttpClient {
             con.disconnect();
 
             translation = buffer.toString();
+            JSONObject o = getObject();
+            return new TranslationData(o);
 	
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -86,21 +88,24 @@ public class TranslationHttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return url;
+		// else return a new TranslationData with nothing in it.
+		return new TranslationData(new JSONObject());
 	}
 	
 	/**
 	 * Set the language to translate to
+	 * doesn't do anything
 	 * @param lang
 	 */
 	public void setDestLang(String lang){
-		
+		System.out.println("setDestLang doesnt do anything!!!!" );
 	}
 	
 	public void init(){
-		 translation = getTranslation();
-		 doTranslation();
+		 
 	}
+	
+
 	
 	private void doTranslation(){
 		String url = "http://glosbe.com/gapi/translate?from=pol&dest=eng&format=json&phrase=witaj&pretty=true";
@@ -135,14 +140,6 @@ public class TranslationHttpClient {
 			e.printStackTrace();
 		}
 	}
-	
-	public String getTranslation(){
-		if(translation==null){
-			return "no translation";
-		}else{
-			return translation;
-		}
-	}
-	
+		
 
 }

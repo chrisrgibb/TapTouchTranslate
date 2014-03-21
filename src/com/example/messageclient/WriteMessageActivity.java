@@ -133,7 +133,7 @@ public class WriteMessageActivity extends Activity {
 	private void getTranslate(){
 		TranslationHttpClient client = new TranslationHttpClient();
 
-		System.out.println(client.getTranslation());
+	//	System.out.println(client.getTranslation());
 
 	}
 	

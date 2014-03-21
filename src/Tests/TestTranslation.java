@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
+import translation.CountryCodes;
 import translation.TranslationData;
 import translation.TranslationHttpClient;
 
@@ -42,8 +43,24 @@ public class TestTranslation {
 		assertEquals(t.getPhrase(), "witaj");
 		assertEquals(t.getDestinationLanguage(), "eng");
 		t.printMyString();
-		System.out.println(t.getMeaning(0));
+	//	assertEquals(t.getMeaning(0), "greeting");
+		System.out.println("==========");
+		t.createJSONobjects();
+		assertNotNull(t.getMeaning(0), "greeting");
 		assertEquals(t.getMeaning(0), "greeting");
+	}
+	
+	@Test
+	public void testSpanish(){
+		String from = CountryCodes.SPANISH;
+		String dest = CountryCodes.ENGLISH;
+		String phrase = "hello";
+		TranslationHttpClient client = new TranslationHttpClient();
+		client.setPhrase(from, dest, phrase);
+		
+		
+		
+		
 	}
 	
 	@Test
@@ -52,6 +69,9 @@ public class TestTranslation {
 		JSONObject nulob = client.getNullObject();
 		assertNotNull(nulob);
 	}
+	
+
+	
 
 
 
