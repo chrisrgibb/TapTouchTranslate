@@ -14,29 +14,27 @@ import org.json.simple.*;;
 
 public class TranslationHttpClient {
 	String translation;
+	String destLanguage = "eng";
+	String URL;
 	
 	public TranslationHttpClient(){
-		 translation = getTranslation();
-		doTranslation();
+		
+	}
+	
+	public JSONObject getNullObject(){
+		return new JSONObject();	
 	}
 	
 	public JSONObject getObject(){
 		JSONObject jObj ;
-
 		jObj = (JSONObject) JSONValue.parse(translation);
 		return jObj;
 	}
 	
-//	public Translation getObject(){
-//		
-//		return new Translation(getObject(translation));
-//	}
-//	
-//	public Translation translatePhrase(String phrase){
-//		
-//		
-//		return new Translation(new JSONObject());
-//	}
+	public void setURL(String url){
+		translation = url;
+	}
+	
 	
 	public String composeURL(String from, String dest, String phrase){
 		StringBuffer sb = new StringBuffer();
@@ -46,7 +44,15 @@ public class TranslationHttpClient {
 		sb.append("&format=json&phrase=");
 		sb.append(phrase);
 		sb.append("&pretty=true");
-		return sb.toString();	
+		URL = sb.toString();
+		return URL;	
+	}
+	
+	public boolean setPhrase(String from, String dest, String phrase){
+		// need to check if languages are valid.
+		URL = this.composeURL(from, dest, phrase);	
+		translation = URL; //TODO need to change this 
+		return true;
 	}
 	
 	public String translateAFew(String from, String dest, String phrase){
@@ -68,7 +74,6 @@ public class TranslationHttpClient {
             while (  (line = br.readLine()) != null ){
                 buffer.append(line + "\r\n");
             }
- 
             is.close();
             con.disconnect();
 
@@ -81,8 +86,20 @@ public class TranslationHttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return url;
+	}
+	
+	/**
+	 * Set the language to translate to
+	 * @param lang
+	 */
+	public void setDestLang(String lang){
+		
+	}
+	
+	public void init(){
+		 translation = getTranslation();
+		 doTranslation();
 	}
 	
 	private void doTranslation(){
@@ -117,7 +134,6 @@ public class TranslationHttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public String getTranslation(){
