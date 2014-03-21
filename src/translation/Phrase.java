@@ -10,4 +10,9 @@ public class Phrase {
 		this.language = language;
 	}
 	
+	@Override
+	public String toString(){
+		return this.text;
+	}
+	
 }

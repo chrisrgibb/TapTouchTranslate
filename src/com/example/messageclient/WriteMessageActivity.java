@@ -1,24 +1,12 @@
 package com.example.messageclient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
+import translation.CountryCodes;
 import translation.TranslationData;
 import translation.TranslationHttpClient;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Layout;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -123,49 +111,30 @@ public class WriteMessageActivity extends Activity {
 		if(item.getItemId()==0){
 			System.out.println("first item");
 			//getTranslation(writeMessage.getSelectedWord());
-			getTranslate();
+			
+			getTranslate(writeMessage.getSelectedWord());
+			
 		}
 		writeMessage.setSelection(0);		
 		
 		return false;
 	}
 	
-	private void getTranslate(){
+	private void getTranslate(String phrase){
+		String dest = CountryCodes.SPANISH;
+		String from = CountryCodes.ENGLISH;
+		//String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
-
-	//	System.out.println(client.getTranslation());
-
+		TranslationData translation = client.translateAFew(from, dest, phrase);
+		String translateString = translation.getTranslations().get(0).getPhrase().toString();
+		//System.out.println("STRIng = "  + translateString);
+		AlertDialog dialog = new AlertDialog.Builder(this)
+						.setMessage(translateString)
+						.setCancelable(true).create();
+		dialog.show();
 	}
 	
-	private void getTranslation(final String word){
-		StringBuilder builder = new StringBuilder();
-		HttpClient client = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet("http://twitter.com/statuses/user_timeline/vogella.json");
-		try {
-		      HttpResponse response = client.execute(httpGet);
-		      StatusLine statusLine = response.getStatusLine();
-		      int statusCode = statusLine.getStatusCode();
-		      System.out.println(" Status Code = " +statusCode);
-		      if (statusCode == 200) {
-		        HttpEntity entity = response.getEntity();
-		        InputStream content = entity.getContent();
-		        BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		        String line;
-		        while ((line = reader.readLine()) != null) {
-		          builder.append(line);
-		        }
-		      } else {
-		        Log.e( "Failed to download file", word);
-		      
-		      
-		      }
-		}
-		      catch (ClientProtocolException e) {
-		          e.printStackTrace();
-		        } catch (IOException e) {
-		          e.printStackTrace();
-		        }
-	}
+	
 	
 	int getOffset(MotionEvent event, EditText ed) {
 		Layout layout = ed.getLayout();

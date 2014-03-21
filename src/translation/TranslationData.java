@@ -79,13 +79,20 @@ public class TranslationData {
 			}
 		
 			this.translations.add(translationJAVA);
-			
 		}
-		System.out.println(translations);
 	}
 	
 	public ArrayList<Translation> getTranslations(){
 		return this.translations;
+	}
+	
+	public String getFirstAvailablePhrase(){
+		for(Translation t : translations){
+			if(t.getPhrase()!=null){
+				return t.getPhrase().toString();
+			}
+		}
+		return "No Translation Available";
 	}
 	
 	public void printprintprint(){
