@@ -1,7 +1,6 @@
 package translation;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,6 +17,7 @@ public class TranslationData {
 		this.jsonObject =jsonObject;	
 		this.originalphrase = (String) jsonObject.get("phrase");
 		this.destinationLanguage =(String) jsonObject.get("dest");
+		this.createJSONobjects();
 	}
 	
 	public String getPhrase(){
@@ -29,30 +29,6 @@ public class TranslationData {
 	}
 	
 	
-	public void printMyString(){
-		System.out.println("PRINTING STRING");
-		// TODO gross testing method that needs to be deleted eventually
-		JSONArray ja = (JSONArray) this.jsonObject.get("tuc");
-		int numberOfAuthors = ja.size();
-		System.out.println(ja.size());
-		
-		
-		JSONObject o = (JSONObject) ja.get(1);
-		System.out.println("MEANINGS");
-		System.out.println(o.get("meanings").toString());
-		// get meanings
-		JSONArray meanings = (JSONArray) o.get("meanings");
-		int numberOfMeanings = meanings.size();
-		System.out.println("Number of meanings = " +numberOfMeanings);
-		
-		JSONObject meaningOne = (JSONObject) meanings.get(0);
-		//JSONObject meaningTwo = (JSONObject) meanings.get(1);
-		System.out.println("ITERATOR");
-		Iterator<JSONObject> iterator = ja.iterator();
-		while(iterator.hasNext()){
-			System.out.println(iterator.next());
-		}
-	}
 	
 	/**
 	 * returns the  meaning selected from the first index
@@ -67,7 +43,7 @@ public class TranslationData {
 	}
 	
 	
-	public void createJSONobjects(){
+	private void createJSONobjects(){
 		//if(this.jsonObject instanceOf)
 		if(this.jsonObject.isEmpty()){
 			return ;
@@ -89,12 +65,11 @@ public class TranslationData {
 					
 					String meaningText = (String) mm.get("text");
 					String meaningLang = (String) mm.get("language");
-					System.out.println(meaningLang);
+	
 					translationJAVA.meanings.add(new Meaning(meaningText, meaningLang));
 				}
 			}
 			
-
 			if(transJSON.containsKey("phrase")){
 				JSONObject phraseJSON = (JSONObject)transJSON.get("phrase");
 				String text = (String) phraseJSON.get("text");
@@ -122,14 +97,6 @@ public class TranslationData {
 		
 		return jsonObject.toJSONString();
 	}
-	
-	public static void main(String[] args) {
-		String from = "pol";
-		String dest = "eng";
-		String phrase = "witaj";
-		TranslationHttpClient client = new TranslationHttpClient();
-		client.setPhrase(from, dest, phrase);
-		TranslationData t = new TranslationData( client.getObject());		
-	}
+
 	
 }

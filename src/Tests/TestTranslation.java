@@ -42,24 +42,23 @@ public class TestTranslation {
 		assertNotNull(t);
 		assertEquals(t.getPhrase(), "witaj");
 		assertEquals(t.getDestinationLanguage(), "eng");
-		t.printMyString();
-	//	assertEquals(t.getMeaning(0), "greeting");
 		System.out.println("==========");
-		t.createJSONobjects();
 		assertNotNull(t.getMeaning(0), "greeting");
 		assertEquals(t.getMeaning(0), "greeting");
 	}
 	
 	@Test
 	public void testSpanish(){
-		String from = CountryCodes.SPANISH;
-		String dest = CountryCodes.ENGLISH;
+		String dest = CountryCodes.SPANISH;
+		String from = CountryCodes.ENGLISH;
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 		client.setPhrase(from, dest, phrase);
+		TranslationData data = client.translateAFew(from, dest, phrase);
+		assertNotNull(data);
+	//	data.printprintprint();
 		
-		
-		
+
 		
 	}
 	
