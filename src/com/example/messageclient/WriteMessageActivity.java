@@ -121,15 +121,26 @@ public class WriteMessageActivity extends Activity {
 	}
 	
 	private void getTranslate(String phrase){
-		String dest = CountryCodes.SPANISH;
+		
 		String from = CountryCodes.ENGLISH;
-		//String phrase = "hello";
+		String dest = CountryCodes.CHINESE_MANDARIN;
+		//String dest = CountryCodes.FRENCH;
+	
 		TranslationHttpClient client = new TranslationHttpClient();
+		
 		TranslationData translation = client.translateAFew(from, dest, phrase);
-		String translateString = translation.getTranslations().get(0).getPhrase().toString();
-		//System.out.println("STRIng = "  + translateString);
+		//String translateString = translation.getTranslations().get(0).getPhrase().toString();
+		String translateString = translation.getFirstAvailablePhrase();
+		
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append(translateString);
+		builder.append("\n");
+		builder.append("Put meaning of word here");
+		
+		
 		AlertDialog dialog = new AlertDialog.Builder(this)
-						.setMessage(translateString)
+						.setMessage(builder.toString())
 						.setCancelable(true).create();
 		dialog.show();
 	}

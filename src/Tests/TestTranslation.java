@@ -64,6 +64,22 @@ public class TestTranslation {
 	}
 	
 	@Test
+	public void testItalian(){
+		String dest = CountryCodes.ITALIAN;
+		String from = CountryCodes.ENGLISH;
+		String phrase = "hello";
+		TranslationHttpClient client = new TranslationHttpClient();
+
+		TranslationData data = client.translateAFew(from, dest, phrase);
+			
+		assertNotNull(data);
+		
+		assertTrue(data.getTranslations().size()  > 0 );
+		System.out.println("STRIng = "  + data.getTranslations().get(0).getPhrase().toString());
+
+	}
+	
+	@Test
 	public void testGetFirstAvailablePhrase(){
 		String from = CountryCodes.ENGLISH;
 		String dest = CountryCodes.SPANISH;
