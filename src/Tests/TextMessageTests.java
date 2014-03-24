@@ -44,8 +44,8 @@ public class TextMessageTests {
 		TextMessage tm = new TextMessage("Hi there this is my sweet sweet message");
 		tm.printMessage();
 		System.out.println(tm.getWordAtIndex(10));
-		assertEquals(tm.getStartOfWordAtIndex(10), 9);
-		assertEquals(tm.getEndOfWordAtIndex(10), 13);
+		assertEquals(tm.getWordStartOffset(10), 9);
+		assertEquals(tm.getWordEndOffset(10), 13);
 		
 	}
 

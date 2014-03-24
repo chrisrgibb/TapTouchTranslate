@@ -65,20 +65,24 @@ public class TextMessage {
 		return "";
 	}
 	
-	public int getStartOfWordAtIndex(int offset){
+	public int getWordStartOffset(int index){
 		// TODO think of better Name
 		for(TextMessageWord w : wordsList){
-			if(w.isInBounds(offset)){
+			if(w.isInBounds(index)){
 				return w.getStartOffset();
 			}
 		}
 		return -1;
 	}
 	
-	public int getEndOfWordAtIndex(int offset){
-		// TODO think of better Name
+	/**
+	 * get the offset of the last char of the word at index
+	 * @param index
+	 * @return
+	 */
+	public int getWordEndOffset(int index){
 		for(TextMessageWord w : wordsList){
-			if(w.isInBounds(offset)){
+			if(w.isInBounds(index)){
 				return w.getEndOffset();
 			}
 		}

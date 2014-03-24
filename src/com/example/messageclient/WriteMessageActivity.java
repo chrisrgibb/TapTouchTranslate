@@ -123,8 +123,8 @@ public class WriteMessageActivity extends Activity {
 	private void getTranslate(String phrase){
 		
 		String from = CountryCodes.ENGLISH;
-		String dest = CountryCodes.CHINESE_MANDARIN;
-		//String dest = CountryCodes.FRENCH;
+		//String dest = CountryCodes.CHINESE_MANDARIN;
+		String dest = CountryCodes.FRENCH;
 	
 		TranslationHttpClient client = new TranslationHttpClient();
 		

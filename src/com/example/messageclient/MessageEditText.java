@@ -67,7 +67,7 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 	private void setSelectionOfWord(){
 		int index = getOffsetForLastDownPosition();
 		TextMessage tm = getMessageText();
-		this.setSelection(tm.getStartOfWordAtIndex(index),	tm.getEndOfWordAtIndex(index));
+		this.setSelection(tm.getWordStartOffset(index),	tm.getWordEndOffset(index));
 		// THis is going to select the word on long press
 	}
 	
