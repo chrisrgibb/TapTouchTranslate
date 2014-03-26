@@ -52,6 +52,7 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 	
 	public String getSelectedWord(){
 		TextMessage tm = getMessageText();
+		System.out.println(this.getSelectionStart() + " > " +this.getSelectionEnd() );
 		
 		return tm.getWordAtIndex(getOffsetForLastDownPosition());
 	}

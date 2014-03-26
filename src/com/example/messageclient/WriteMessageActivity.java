@@ -121,43 +121,50 @@ public class WriteMessageActivity extends Activity {
 	}
 	
 	private void getTranslate(String phrase){
-		String translateString= "test";
-		if(testing){
-			translateString = "In test Mode";
-			
-		}else{
-			
 		
-			String from = CountryCodes.ENGLISH;
-			//String dest = CountryCodes.CHINESE_MANDARIN;
-			String dest = CountryCodes.FRENCH;
+		new TranslationTask(this).execute(phrase);
 		
-			TranslationHttpClient client = new TranslationHttpClient();
-			
-			TranslationData translation = client.translateAFew(from, dest, phrase);
-			//String translateString = translation.getTranslations().get(0).getPhrase().toString();
-			translateString = translation.getFirstAvailablePhrase();
-		}
 		
-		StringBuilder builder = new StringBuilder();
-		builder.append(translateString);
-		builder.append("\n");
-			
-		
-//		AlertDialog dialog = new AlertDialog.Builder(this)
-//						.setMessage(builder.toString())
-//						.setCancelable(true).create();
-//		dialog.show();
-		TranslationAlertDialog dlog = new TranslationAlertDialog(this, builder.toString());
-		Window window = dlog.getWindow();
-		window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-		window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND); // get rid of greyed out background
-        window.setGravity(Gravity.TOP); 
-        int w = window.getAttributes().width;
-        System.out.println("Window width = " + w);
-		dlog.show();
-
 	}
+	
+//	private void getTranslate(String phrase){
+//		String translateString= "test";
+//		if(testing){
+//			translateString = "In test Mode";
+//			
+//		}else{
+//			
+//		
+//			String from = CountryCodes.ENGLISH;
+//			//String dest = CountryCodes.CHINESE_MANDARIN;
+//			String dest = CountryCodes.FRENCH;
+//		
+//			TranslationHttpClient client = new TranslationHttpClient();
+//			
+//			TranslationData translation = client.translateAFew(from, dest, phrase);
+//			//String translateString = translation.getTranslations().get(0).getPhrase().toString();
+//			translateString = translation.getFirstAvailablePhrase();
+//		}
+//		
+//		StringBuilder builder = new StringBuilder();
+//		builder.append(translateString);
+//		builder.append("\n");
+//			
+//		
+////		AlertDialog dialog = new AlertDialog.Builder(this)
+////						.setMessage(builder.toString())
+////						.setCancelable(true).create();
+////		dialog.show();
+//		TranslationAlertDialog dlog = new TranslationAlertDialog(this, builder.toString());
+//		Window window = dlog.getWindow();
+//		window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+//		window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND); // get rid of greyed out background
+//        window.setGravity(Gravity.TOP); 
+//        int w = window.getAttributes().width;
+//        System.out.println("Window width = " + w);
+//		dlog.show();
+//
+//	}
 	
 	
 	
