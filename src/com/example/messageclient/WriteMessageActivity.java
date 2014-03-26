@@ -1,21 +1,15 @@
 package com.example.messageclient;
 
-import translation.CountryCodes;
-import translation.TranslationData;
-import translation.TranslationHttpClient;
 import android.app.Activity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.Layout;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,6 +27,9 @@ public class WriteMessageActivity extends Activity {
 	int countOnTouch = 0;
 	SmsManager smsManager;
 	boolean testing = true;
+	String from;
+	String dest;
+	
 	
 	
 	public void selectWord(CharSequence word){
@@ -42,8 +39,14 @@ public class WriteMessageActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		System.out.println("ONCREATE WRITE ACTIVITY");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_message);
+		
+		from = this.getIntent().getStringExtra("FROM");
+		dest = this.getIntent().getStringExtra("DEST");
+		System.out.println(from);
+		System.out.println(dest);
 		
 		textmess = new TextMessage();
 		

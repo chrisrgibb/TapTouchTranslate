@@ -5,6 +5,6 @@ import translation.CountryCodes;
 public class Settings {
 
 	public static String FROM = CountryCodes.ENGLISH;
-	public static String DEST = CountryCodes.FRENCH;
+	public static String DEST = CountryCodes.CHINESE_MANDARIN;
 	
 }

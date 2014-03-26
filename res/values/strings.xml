@@ -10,4 +10,12 @@
     <string name="sms_message_hint">Type to compose</string>
     <string name="phone_number_hint">Phone Number</string>
 
+    <string-array name="language_array">
+        <item>English</item>
+        <item>Chinese</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>Spanish</item>
+    </string-array>
+    
 </resources>

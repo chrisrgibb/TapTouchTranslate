@@ -17,7 +17,6 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 
 	public MessageEditText(Context context) {
 		super(context);
-
 		init(context);
 	}
 
@@ -34,7 +33,6 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 
 	private void init(Context context) {
 		this.setOnLongClickListener(this);
-
 	}
 
 	@Override
