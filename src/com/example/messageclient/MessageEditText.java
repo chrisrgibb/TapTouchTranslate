@@ -3,19 +3,12 @@ package com.example.messageclient;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.text.Spannable;
 import android.util.AttributeSet;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 public class MessageEditText extends EditText implements OnLongClickListener {
 	private float lastDownPositionX;

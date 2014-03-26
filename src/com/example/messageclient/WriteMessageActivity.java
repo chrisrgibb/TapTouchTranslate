@@ -4,24 +4,36 @@ import translation.CountryCodes;
 import translation.TranslationData;
 import translation.TranslationHttpClient;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Layout;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class WriteMessageActivity extends Activity {
+	
+	EditText phoneNumber;
 	MessageEditText writeMessage;
+	Button sendButton;
 	CharSequence wordToLookup = " f";
 	int touchX;
 	int touchY;
 	TextMessage textmess;
 	int countOnTouch = 0;
+	SmsManager smsManager;
+	boolean testing = true;
+	
 	
 	public void selectWord(CharSequence word){
 		wordToLookup = word;
@@ -33,11 +45,12 @@ public class WriteMessageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_message);
 		
-		
 		textmess = new TextMessage();
 		
+		phoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
 		writeMessage = (MessageEditText) findViewById(R.id.editTextSMS);
-	
+		sendButton = (Button) findViewById(R.id.buttonSend);
+		
 		registerForContextMenu(this.writeMessage);
 		writeMessage.setOnTouchListener(new View.OnTouchListener() {
 			
@@ -89,6 +102,25 @@ public class WriteMessageActivity extends Activity {
 		
 		});
 		
+		sendButton.setOnClickListener(new OnClickListener(){
+			
+			@Override
+			public void onClick(View v){
+				String phoneNo = phoneNumber.getText().toString();
+				String message = writeMessage.getText().toString();
+				
+			
+				smsManager = SmsManager.getDefault();
+				smsManager.sendTextMessage(phoneNo, null, message, null, null);
+				Toast.makeText(getApplicationContext(), "SMS Sent!",
+						Toast.LENGTH_LONG).show();
+				
+			}
+			
+			
+		});
+		
+		
 	}
 	
 	@Override
@@ -121,29 +153,44 @@ public class WriteMessageActivity extends Activity {
 	}
 	
 	private void getTranslate(String phrase){
+		String translateString= "test";
+		if(testing){
+			translateString = "BonJour";
+			
+		}else{
+			
 		
-		String from = CountryCodes.ENGLISH;
-		//String dest = CountryCodes.CHINESE_MANDARIN;
-		String dest = CountryCodes.FRENCH;
-	
-		TranslationHttpClient client = new TranslationHttpClient();
+			String from = CountryCodes.ENGLISH;
+			//String dest = CountryCodes.CHINESE_MANDARIN;
+			String dest = CountryCodes.FRENCH;
 		
-		TranslationData translation = client.translateAFew(from, dest, phrase);
-		//String translateString = translation.getTranslations().get(0).getPhrase().toString();
-		String translateString = translation.getFirstAvailablePhrase();
-		
+			TranslationHttpClient client = new TranslationHttpClient();
+			
+			TranslationData translation = client.translateAFew(from, dest, phrase);
+			//String translateString = translation.getTranslations().get(0).getPhrase().toString();
+			translateString = translation.getFirstAvailablePhrase();
+		}
 		
 		StringBuilder builder = new StringBuilder();
 		builder.append(translateString);
 		builder.append("\n");
-		builder.append("Put meaning of word here");
+			
 		
-		
-		AlertDialog dialog = new AlertDialog.Builder(this)
-						.setMessage(builder.toString())
-						.setCancelable(true).create();
-		dialog.show();
+//		AlertDialog dialog = new AlertDialog.Builder(this)
+//						.setMessage(builder.toString())
+//						.setCancelable(true).create();
+//		dialog.show();
+		TranslationAlertDialog dlog = new TranslationAlertDialog(this, builder.toString());
+		Window window = dlog.getWindow();
+		window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+		window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND); // get rid of greyed out background
+        window.setGravity(Gravity.TOP); 
+        int w = window.getAttributes().width;
+        System.out.println("Window width = " + w);
+		dlog.show();
+
 	}
+	
 	
 	
 	

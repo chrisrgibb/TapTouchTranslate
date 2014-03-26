@@ -1,14 +1,9 @@
 package com.example.messageclient;
 
 import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-
-import android.text.Spannable;
-import android.text.style.ClickableSpan;
 
 public class TextMessage {
 

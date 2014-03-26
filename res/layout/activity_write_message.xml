@@ -20,6 +20,8 @@
 
     <EditText
         android:id="@+id/editTextPhoneNo"
+        android:inputType="phone"
+        android:hint="@+id/phone_phone_number_hintphone_number_hintnumber_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -38,6 +40,7 @@
     <com.example.messageclient.MessageEditText
         android:id="@+id/editTextSMS"
         android:textIsSelectable="true"
+        android:hint="enter text"
         android:selectAllOnFocus="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

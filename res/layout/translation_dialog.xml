@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/translation_dialog_textview1"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_gravity="top"
+        android:text="hello there"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/translation_dialog_textview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal|bottom"
+        android:background="#FFFFBB33" />
+
+</FrameLayout>
