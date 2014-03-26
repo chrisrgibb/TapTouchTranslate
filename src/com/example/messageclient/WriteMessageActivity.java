@@ -53,53 +53,22 @@ public class WriteMessageActivity extends Activity {
 		
 		registerForContextMenu(this.writeMessage);
 		writeMessage.setOnTouchListener(new View.OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 
-				switch(event.getAction()){
+				switch (event.getAction()) {
 				case (MotionEvent.ACTION_DOWN):
 					countOnTouch++; // for debuggin
 					break;
 				case (MotionEvent.ACTION_UP):
-					countOnTouch=0;
+					countOnTouch = 0;
 					break;
 				}
-				
-			
-//				EditText e = (EditText) v;
-//				String definition = e.getText().toString();
-//
-//				Spannable spans = (Spannable ) e.getText();
-//				int index = Selection.getSelectionStart(spans);
-				
-			
+
 				return false;
 			}
 
-//			private ClickableSpan getClickableSpan(final String word) {
-//				System.out.println(" GET CLICKABLE SPAN" + word);
-//				return new ClickableSpan() {
-//					final String mWord;
-//					{
-//						mWord = word;
-//					}
-//
-//					@Override
-//					public void onClick(View widget) {
-//						Log.d("tapped on:", mWord);
-//						Toast.makeText(widget.getContext(), mWord,
-//								Toast.LENGTH_SHORT).show();
-//					}
-//
-//					public void updateDrawState(TextPaint ds) {	
-//						// comment out to stop drawing links
-////						super.updateDrawState(ds);  
-//						
-//					}
-//				};
-//			}
-		
 		});
 		
 		sendButton.setOnClickListener(new OnClickListener(){
@@ -116,8 +85,7 @@ public class WriteMessageActivity extends Activity {
 						Toast.LENGTH_LONG).show();
 				
 			}
-			
-			
+					
 		});
 		
 		
@@ -126,10 +94,12 @@ public class WriteMessageActivity extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
-		System.out.println("onCreateContextMenu");
-		TextMessage tm = writeMessage.getMessageText();
 		
 		String word = writeMessage.getSelectedWord();
+		if(word.length() == 0){
+			// word not selected, just selected empty space
+			
+		}
 
 		menu.clear(); // remove every item on contextMenu
 		menu.add(0, 0, 0, "Lookup \'" + word + "\'");
@@ -141,8 +111,6 @@ public class WriteMessageActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item){
 		if(item.getItemId()==0){
-			System.out.println("first item");
-			//getTranslation(writeMessage.getSelectedWord());
 			
 			getTranslate(writeMessage.getSelectedWord());
 			
@@ -155,7 +123,7 @@ public class WriteMessageActivity extends Activity {
 	private void getTranslate(String phrase){
 		String translateString= "test";
 		if(testing){
-			translateString = "BonJour";
+			translateString = "In test Mode";
 			
 		}else{
 			

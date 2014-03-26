@@ -51,7 +51,7 @@ public class TextMessage {
 	 * @return the word at that index or an empty string.
 	 */
 	public String getWordAtIndex(int offset){
-		// not that efficient but average size of message won't be big hopefully
+		// maybe not that efficient but average size of message won't be big hopefully
 		for(TextMessageWord w : wordsList){
 			if(w.isInBounds(offset)){
 				return w.getWord();
