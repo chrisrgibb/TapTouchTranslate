@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 public class MainActivity extends Activity {
 	Button button;
 	Button button2;
+	Button settingsButton;
 	Spinner spinner;
 	String from = CountryCodes.ENGLISH;
 	String dest = CountryCodes.CHINESE_MANDARIN;
@@ -38,15 +40,42 @@ public class MainActivity extends Activity {
 				startActivity(i);			
 			}	
 		});	
+		settingsButton = (Button) findViewById(R.id.settings_button);
+		settingsButton.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			
+		});
 		createSpinner();
 
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		System.out.println("I'M an Options menu");
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		switch( item.getItemId()){
+			case R.id.action_settings:
+				System.out.println("yes");
+				Intent i = new Intent(this, SettingsActivity.class);
+				startActivity(i);
+				break;
+		}
+		
+		return false;
 	}
 	
 	public void createSpinner(){

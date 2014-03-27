@@ -41,7 +41,7 @@ public class TranslationHttpClient {
 		sb.append(from);
 		sb.append("&dest=" + dest);
 		sb.append("&format=json&phrase=");
-		sb.append(phrase);
+		sb.append(phrase.toLowerCase());
 		sb.append("&pretty=true");
 		URL = sb.toString();
 		return URL;	
@@ -55,7 +55,7 @@ public class TranslationHttpClient {
 			HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
-			con.setDoOutput(true);
+			//con.setDoOutput(true);
 			con.connect();
 			
 			StringBuffer buffer = new StringBuffer();

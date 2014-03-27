@@ -26,18 +26,16 @@ public class TranslationTask extends AsyncTask<String, String, TranslationData>{
 		// int count = params.length;
 		WriteMessageActivity activity =(		WriteMessageActivity) context;
 		
-		//String from = CountryCodes.ENGLISH;
 		String from = activity.from;
 		String dest = activity.dest;
-//		String dest = CountryCodes.CHINESE_MANDARIN;
+		
 		TranslationHttpClient client = new TranslationHttpClient();
-//		client.translateAFew(from, dest, params[0]);
-	
+		
 		return client.translateAFew(from, dest, params[0]);
 	}
 	
 	protected void onPostExecute(TranslationData result){
-		//String ss = MainActivity.this.dest;
+		//String ss = MainActivity.th3is.dest;
 		
 		TranslationAlertDialog dlog = new TranslationAlertDialog(context,result);
 		Window window = dlog.getWindow();
