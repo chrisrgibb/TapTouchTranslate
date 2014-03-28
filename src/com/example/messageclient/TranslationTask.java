@@ -3,7 +3,9 @@ package com.example.messageclient;
 import translation.TranslationData;
 import translation.TranslationHttpClient;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,9 +27,13 @@ public class TranslationTask extends AsyncTask<String, String, TranslationData>{
 	protected TranslationData doInBackground(String... params) {
 		// int count = params.length;
 		WriteMessageActivity activity =(		WriteMessageActivity) context;
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+	
+		String from = sharedPref.getString(SettingsActivity.FROM, "eng");
+		//String from = activity.from;
 		
-		String from = activity.from;
-		String dest = activity.dest;
+		//String dest = activity.dest;
+		String dest = sharedPref.getString(SettingsActivity.DEST, "cmn");
 		
 		TranslationHttpClient client = new TranslationHttpClient();
 		
