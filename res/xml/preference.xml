@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
      <ListPreference
-         android:key="pref_key_country_code"
+         android:title="translate from"
+         android:key="pref_key_country_code_from"
          android:entries="@array/listentries"
          android:entryValues="@array/listvalues"
+     />
+     <ListPreference
+         android:title="translate To"
+         android:key="pref_key_country_code_to"
+         android:entries="@array/listentries"
+         android:entryValues="@array/listvalues"       
      />
 
 </PreferenceScreen>
