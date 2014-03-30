@@ -16,8 +16,10 @@ public class TranslationTask extends AsyncTask<String, String, TranslationData>{
 	TranslationAlertDialog dlog;
 	private Context context;
 	
+	
 	public TranslationTask(Context context){
 		this.context = context;
+		
 	}
 	
 	protected void onPreExecute() {

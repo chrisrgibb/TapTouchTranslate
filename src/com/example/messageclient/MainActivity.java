@@ -14,7 +14,6 @@ public class MainActivity extends Activity {
 	Button button;
 	Button button2;
 	Button settingsButton;
-	Spinner spinner;
 	String from = "eng";
 	String dest = "cmn";
 	
@@ -35,21 +34,6 @@ public class MainActivity extends Activity {
 			}	
 		});	
 		
-		settingsButton = (Button) findViewById(R.id.settings_button);
-		
-		settingsButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(MainActivity.this, TranslationHistoryActivity.class);
-				startActivity(i);	
-			}
-			
-			
-			
-		});
-		
-
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package translation;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +16,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 	
 	public static final String DATABASE_NAME =  "translationDB";
 	private static final String DATABASE_TABLE ="translations";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 3;
 	
 	
 	private static final String KEY_ID     = "id";
@@ -26,11 +28,12 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 	public TranslationDbHelper(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public TranslationDbHelper(Context context){
+		
 		super(context,DATABASE_NAME, null, DATABASE_VERSION );
+//		this.printDataBase();
 	}
 
 	@Override
@@ -46,6 +49,10 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 		
 	}
 	
+	public void close(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.close();
+	}
 	
 	public void alterTable(SQLiteDatabase db){
 		String alter ="ALTER TABLE " + DATABASE_TABLE + " RENAME TO tmp_table_name"	;
@@ -55,6 +62,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		System.out.println("on upgrade");
 		// Drop older TRANSLATIONS table if existed
         db.execSQL("DROP TABLE IF EXISTS translations");
  
@@ -67,8 +75,8 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
-        values.put(KEY_PHRASE, d.getFirstAvailablePhrase()); 
-        values.put("author", d.getFirstAvailablePhrase()); 
+        values.put(KEY_PHRASE, d.getFirstAvailablePhrase() ); 
+        values.put(KEY_MEANING, d.getFirstAvailableMeaning() ); 
 		
 		db.insert(DATABASE_TABLE, null, values);
 		
@@ -97,9 +105,51 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 		 translationarray.add(t);
 		 
 		 translation.addTranslation(translationarray );
-						 
-						 
+		 
+		 db.close();	 
 		return translation;	 
+	}
+	
+	public void printDataBase(){
+		List<TranslationData> trannys = this.getAllTranslations();
+		for(TranslationData d : trannys){
+			
+			System.out.println(d.toString() );
+		}
+		
+	}
+	
+	public List<TranslationData> getAllTranslations(){
+		List<TranslationData> translations = new ArrayList<TranslationData>();
+		
+		String query = "SELECT * FROM " + DATABASE_TABLE;
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+		
+		TranslationData data = null;
+		if( cursor.moveToFirst()){
+			do{
+				data = new TranslationData();
+				
+				
+				Translation t = new Translation();
+				t.addPhrase(new Phrase( cursor.getString(1), "" ) );
+			//	String mean = cursor.getString(2);
+				t.addMeaning(new Meaning(cursor.getString(2), "") );
+				
+				
+				ArrayList<Translation> translationarray  = new ArrayList<Translation>();
+				translationarray.add(t);
+				data.addTranslation(translationarray);
+				
+				translations.add(data);
+			}while(cursor.moveToNext());
+			
+			
+		}
+		cursor.close();
+		return translations;
 	}
 	
 }

@@ -50,6 +50,6 @@
         android:layout_alignLeft="@+id/button_write_message"
         android:layout_below="@+id/spinner1"
         android:layout_marginTop="34dp"
-        android:text="Settings" />
+        android:text="Translation History" />
 
 </RelativeLayout>
