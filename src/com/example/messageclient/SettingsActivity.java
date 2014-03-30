@@ -1,6 +1,6 @@
 package com.example.messageclient;
 
-import translation.CountryCodes;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -44,7 +44,6 @@ public class SettingsActivity extends PreferenceActivity implements
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
-		// TODO Auto-generated method stub
 		updatePreferences(findPreference(key));
 	}
 

@@ -24,13 +24,13 @@ public class TranslationAlertDialog extends AlertDialog {
 		
 		
 		translation = data.getFirstAvailablePhrase();
-		
+		String Meaning = data.getFirstAvailableMeaning();
 
 		TextView textview1 = (TextView) findViewById(R.id.textView1);
 		textview1.setText(translation);
 		
 		TextView textview2 = (TextView) findViewById(R.id.textView2);
-		textview2.setText("Going to put meaning here");
+		textview2.setText(Meaning);
 		
 		setCancelable(true);
 		

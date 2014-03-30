@@ -1,6 +1,7 @@
 package com.example.messageclient;
 
 import translation.TranslationData;
+import translation.TranslationDbHelper;
 import translation.TranslationHttpClient;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -42,7 +43,10 @@ public class TranslationTask extends AsyncTask<String, String, TranslationData>{
 	
 	protected void onPostExecute(TranslationData result){
 		//String ss = MainActivity.th3is.dest;
-		
+		  TranslationDbHelper db = new TranslationDbHelper(context);
+	      db.addTranslation(result);
+	      
+	      
 		TranslationAlertDialog dlog = new TranslationAlertDialog(context,result);
 		Window window = dlog.getWindow();
 		window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);

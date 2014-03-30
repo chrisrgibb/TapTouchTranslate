@@ -1,21 +1,22 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import translation.CountryCodes;
-import translation.Translation;
 import translation.TranslationData;
 import translation.TranslationHttpClient;
 
 
 public class TestTranslation {
 	
-	
+	String ENGLISH = "eng";
+	String SPANISH = "spa";
+	String CHINESE = "cmn";
+	String ITALIAN = "ita";
 
 	
 	@Test
@@ -36,7 +37,7 @@ public class TestTranslation {
 		String phrase = "witaj";
 		TranslationHttpClient client = new TranslationHttpClient();
 	
-		client.translateAFew(from, dest, phrase);// TODO change this to get return the translation object from 
+		client.translateAFew(from, dest, phrase);
 		
 		TranslationData t = new TranslationData( client.getObject());
 		assertNotNull(t);
@@ -49,8 +50,8 @@ public class TestTranslation {
 	
 	@Test
 	public void testSpanish(){
-		String dest = CountryCodes.SPANISH;
-		String from = CountryCodes.ENGLISH;
+		String dest = "spa";
+		String from = "eng";
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 
@@ -65,8 +66,8 @@ public class TestTranslation {
 	
 	@Test
 	public void testItalian(){
-		String dest = CountryCodes.ITALIAN;
-		String from = CountryCodes.ENGLISH;
+		String dest = ITALIAN;
+		String from = ENGLISH;
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 
@@ -81,8 +82,8 @@ public class TestTranslation {
 	
 	@Test
 	public void testGetFirstAvailablePhrase(){
-		String from = CountryCodes.ENGLISH;
-		String dest = CountryCodes.SPANISH;
+		String from = ENGLISH;
+		String dest = SPANISH;
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 
@@ -98,7 +99,7 @@ public class TestTranslation {
 		JSONObject nulob = client.getNullObject();
 		assertNotNull(nulob);
 	}
-	
+
 
 	
 

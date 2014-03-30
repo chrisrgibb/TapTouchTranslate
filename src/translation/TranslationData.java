@@ -20,12 +20,24 @@ public class TranslationData {
 		this.createJSONobjects();
 	}
 	
+	public TranslationData(){
+		
+	}
+	
 	public String getPhrase(){
 		return this.originalphrase;
 	}
 	
 	public String getDestinationLanguage(){
 		return this.destinationLanguage;
+	}
+	
+	public void addPhrase(String phrase){
+		this.originalphrase = phrase;
+	}
+	
+	public void addTranslation(ArrayList<Translation> translation){
+		this.translations = translation;
 	}
 	
 	
@@ -94,6 +106,16 @@ public class TranslationData {
 		}
 		return "No Translation Available";
 	}
+	
+	public String getFirstAvailableMeaning(){
+		for(Translation t: translations){
+			for(Meaning m : t.meanings){
+				System.out.println(m.text);
+			}
+		}
+		return "No Meaning Available";
+	}
+	
 	
 	public void printprintprint(){
 		for(Translation t: translations){
