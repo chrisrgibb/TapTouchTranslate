@@ -48,7 +48,7 @@ public class TranslationHttpClient {
 	}
 	
 	
-	public TranslationData translateAFew(String from, String dest, String phrase){
+	public TranslationGroup translateAFew(String from, String dest, String phrase){
 
 		String url = this.composeURL(from, dest, phrase);
 		try {
@@ -71,7 +71,7 @@ public class TranslationHttpClient {
 
             translation = buffer.toString();
             JSONObject o = getObject();
-            return new TranslationData(o);
+            return new TranslationGroup(o);
 	
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -81,7 +81,7 @@ public class TranslationHttpClient {
 			e.printStackTrace();
 		}
 		// else return a new TranslationData with nothing in it.
-		return new TranslationData(new JSONObject());
+		return new TranslationGroup(new JSONObject());
 	}
 	
 	/**

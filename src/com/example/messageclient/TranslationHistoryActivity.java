@@ -2,7 +2,7 @@ package com.example.messageclient;
 
 import java.util.List;
 
-import translation.TranslationData;
+import translation.TranslationGroup;
 import translation.TranslationDbHelper;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -18,7 +18,7 @@ public class TranslationHistoryActivity extends ListActivity {
 	
 	TranslationDbHelper db;
 	SimpleCursorAdapter mAdapter;
-	 List<TranslationData> tData;
+	 List<TranslationGroup> tData;
 	 Context context = this;
 	
 	
@@ -32,8 +32,8 @@ public class TranslationHistoryActivity extends ListActivity {
         db = new TranslationDbHelper(this);
       
         tData = db.getAllTranslations();
-        ArrayAdapter<TranslationData> adapter = 
-        		new ArrayAdapter<TranslationData>(this, android.R.layout.simple_list_item_1, tData);
+        ArrayAdapter<TranslationGroup> adapter = 
+        		new ArrayAdapter<TranslationGroup>(this, android.R.layout.simple_list_item_1, tData);
         setListAdapter(adapter);
         db.close();
         

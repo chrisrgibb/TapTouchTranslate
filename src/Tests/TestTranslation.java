@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import translation.TranslationData;
+import translation.TranslationGroup;
 import translation.TranslationHttpClient;
 
 
@@ -39,7 +39,7 @@ public class TestTranslation {
 	
 		client.translateAFew(from, dest, phrase);
 		
-		TranslationData t = new TranslationData( client.getObject());
+		TranslationGroup t = new TranslationGroup( client.getObject());
 		assertNotNull(t);
 		assertEquals(t.getPhrase(), "witaj");
 		assertEquals(t.getDestinationLanguage(), "eng");
@@ -55,7 +55,7 @@ public class TestTranslation {
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 
-		TranslationData data = client.translateAFew(from, dest, phrase);
+		TranslationGroup data = client.translateAFew(from, dest, phrase);
 			
 		assertNotNull(data);
 		
@@ -71,7 +71,7 @@ public class TestTranslation {
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 
-		TranslationData data = client.translateAFew(from, dest, phrase);
+		TranslationGroup data = client.translateAFew(from, dest, phrase);
 			
 		assertNotNull(data);
 		
@@ -87,7 +87,7 @@ public class TestTranslation {
 		String phrase = "hello";
 		TranslationHttpClient client = new TranslationHttpClient();
 
-		TranslationData data = client.translateAFew(from, dest, phrase);
+		TranslationGroup data = client.translateAFew(from, dest, phrase);
 		
 		assertNotNull(data.getFirstAvailablePhrase());
 		System.out.println("First available phrase " + data.getFirstAvailablePhrase());

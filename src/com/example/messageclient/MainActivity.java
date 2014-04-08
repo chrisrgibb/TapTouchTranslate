@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Spinner;
 
 public class MainActivity extends Activity {
 	Button button;
@@ -33,7 +32,15 @@ public class MainActivity extends Activity {
 				startActivity(i);			
 			}	
 		});	
-		
+		button2 = (Button) findViewById(R.id.settings_button);
+		button2.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, TranslationHistoryActivity.class);
+				startActivity(i);	
+			}		
+		});	 
 	}
 
 	@Override
@@ -58,44 +65,4 @@ public class MainActivity extends Activity {
 		return false;
 	}
 	
-//	public void createSpinner(){
-//		spinner = (Spinner) findViewById(R.id.spinner1);
-//		List<String> countryCodes = new ArrayList<String>();
-//		countryCodes.add("Chinese");
-//		countryCodes.add("French");
-//		countryCodes.add("Italian");
-//		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countryCodes);
-//		spinner.setAdapter(dataAdapter);
-//		spinner.setOnItemSelectedListener(new OnItemSelectedListener(){
-//
-//			@Override
-//			public void onItemSelected(AdapterView<?> arg0, View arg1,
-//					int pos, long arg3) {
-//				// TODO Auto-generated method stub
-//				switch(pos){
-//				
-//					case(0):
-//						dest = CountryCodes.CHINESE_MANDARIN;
-//					
-//						break;
-//					case(1):
-//						dest = CountryCodes.FRENCH;
-//						break;
-//					case(2):
-//						dest = CountryCodes.ITALIAN;
-//						break;
-//				}	
-//				System.out.println("DEST = " + dest);
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> arg0) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//			
-//			
-//		});
-//	}
-
 }

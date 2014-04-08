@@ -9,7 +9,6 @@ public class Translation {
 	
 	public Translation(){
 		
-		
 	}
 	
 	public void addPhrase(Phrase p){

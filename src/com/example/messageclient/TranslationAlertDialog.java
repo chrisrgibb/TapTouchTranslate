@@ -1,6 +1,6 @@
 package com.example.messageclient;
 
-import translation.TranslationData;
+import translation.TranslationGroup;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 public class TranslationAlertDialog extends AlertDialog {
 	String translation;
-	private TranslationData data;
+	private TranslationGroup data;
 
-	public TranslationAlertDialog(Context context, TranslationData result) {
+	public TranslationAlertDialog(Context context, TranslationGroup result) {
 		super(context);
 		this.data = result;
 	}

@@ -5,22 +5,28 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class TranslationData {
+public class TranslationGroup {
 
 	private String originalphrase;
+	private String originalLanguage;
 	private String destinationLanguage;
 	private JSONObject jsonObject;
 	private ArrayList<Translation> translations = new ArrayList<Translation>();
 	
-	
-	public TranslationData(JSONObject jsonObject){
+	/**
+	 * A translationGroup object represents the collections of data returned from the translation API.
+	 * It holds a list of translations which each have a phrase and a meaning 
+	 * @param jsonObject
+	 */
+	public TranslationGroup(JSONObject jsonObject){
 		this.jsonObject =jsonObject;	
 		this.originalphrase = (String) jsonObject.get("phrase");
+		this.originalLanguage = (String) jsonObject.get("from" );
 		this.destinationLanguage =(String) jsonObject.get("dest");
 		this.createJSONobjects();
 	}
 	
-	public TranslationData(){
+	public TranslationGroup(){
 		
 	}
 	
@@ -38,6 +44,10 @@ public class TranslationData {
 	
 	public void addTranslation(ArrayList<Translation> translation){
 		this.translations = translation;
+	}
+	
+	public String getOriginalLanguage(){
+		return this.originalLanguage;
 	}
 	
 	
@@ -66,31 +76,7 @@ public class TranslationData {
 		for(Object o : tuc.toArray()){
 			
 			JSONObject transJSON = (JSONObject)o;
-			Translation translationJAVA = new Translation();
 			
-//			if(transJSON.containsKey("meanings")){
-//				// Iterate through meanings Array
-//				// May not necessarily have a meanings array
-//				
-//				JSONArray meanings = (JSONArray) transJSON.get("meanings");
-//				for(Object m : meanings){
-//					JSONObject mm = (JSONObject)m;
-//					
-//					String meaningText = (String) mm.get("text");
-//					String meaningLang = (String) mm.get("language");
-//	
-//					translationJAVA.meanings.add(new Meaning(meaningText, meaningLang));
-//				}
-//			}
-//			
-//			if(transJSON.containsKey("phrase")){
-//				JSONObject phraseJSON = (JSONObject)transJSON.get("phrase");
-//				String text = (String) phraseJSON.get("text");
-//				String lang = (String) phraseJSON.get("language");
-//				Phrase phrase = new Phrase(text, lang);
-//				translationJAVA.addPhrase(phrase);
-//			}
-//			
 			if(transJSON.containsKey("phrase") && transJSON.containsKey("meanings") ){
 				Translation transt = new Translation();
 				
@@ -119,8 +105,7 @@ public class TranslationData {
 		
 		//	this.translations.add(translationJAVA);
 		}
-		
-		System.out.println("contains count = " +containsCount );
+//		System.out.println("contains count = " +containsCount );
 	}
 	
 	public ArrayList<Translation> getTranslations(){

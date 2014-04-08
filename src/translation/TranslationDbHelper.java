@@ -71,19 +71,37 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 		
 	}
 	
-	public void addTranslation(TranslationData d){
-		SQLiteDatabase db = this.getWritableDatabase();
-		
-		ContentValues values = new ContentValues();
-        values.put(KEY_PHRASE, d.getFirstAvailablePhrase() ); 
-        values.put(KEY_MEANING, d.getFirstAvailableMeaning() ); 
-		
-		db.insert(DATABASE_TABLE, null, values);
-		
-		db.close();
-	}
+	public void addTranslation(TranslationGroup d){
+		if(!containsTranslation(d)){
+			SQLiteDatabase db = this.getWritableDatabase();
+			
+			ContentValues values = new ContentValues();
+	        values.put(KEY_PHRASE, d.getFirstAvailablePhrase() ); 
+	        values.put(KEY_MEANING, d.getFirstAvailableMeaning() ); 
+			
+			db.insert(DATABASE_TABLE, null, values);
+			
+			db.close();
+		}
 
-	public TranslationData getTranslation(int id){
+	}
+	
+	private boolean containsTranslation(TranslationGroup group){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor mCursor = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + 
+									" WHERE " + KEY_PHRASE + "=?", 
+									new String[]{ group.getFirstAvailablePhrase()});
+		db.close();
+		if(mCursor!=null){
+			return true;
+		}else{
+			return false;
+		}	
+	}
+	
+	
+
+	public TranslationGroup getTranslation(int id){
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
 		 Cursor cursor = 
@@ -97,7 +115,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 			 cursor.moveToFirst();
 		 }
 		 // TODO realized the code and objects for all the translations are way too convoluted
-		 TranslationData translation = new TranslationData();
+		 TranslationGroup translation = new TranslationGroup();
 		 translation.addPhrase(cursor.getString(1));
 		 Translation t = new Translation();
 		 t.addMeaning(new Meaning( cursor.getString(2), "") );
@@ -111,31 +129,34 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 	}
 	
 	public void printDataBase(){
-		List<TranslationData> trannys = this.getAllTranslations();
-		for(TranslationData d : trannys){
+		List<TranslationGroup> trannys = this.getAllTranslations();
+		for(TranslationGroup d : trannys){
 			
 			System.out.println(d.toString() );
 		}
 		
 	}
 	
-	public List<TranslationData> getAllTranslations(){
-		List<TranslationData> translations = new ArrayList<TranslationData>();
+	/**
+	 * 
+	 * returns a list of Transactions from the SQLite Database on the phone
+	 * @return
+	 */
+	public List<TranslationGroup> getAllTranslations(){
+		List<TranslationGroup> translations = new ArrayList<TranslationGroup>();
 		
 		String query = "SELECT * FROM " + DATABASE_TABLE;
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
 		
-		TranslationData data = null;
+		TranslationGroup data = null;
 		if( cursor.moveToFirst()){
 			do{
-				data = new TranslationData();
-				
-				
+				data = new TranslationGroup();
+								
 				Translation t = new Translation();
 				t.addPhrase(new Phrase( cursor.getString(1), "" ) );
-			//	String mean = cursor.getString(2);
 				t.addMeaning(new Meaning(cursor.getString(2), "") );
 				
 				

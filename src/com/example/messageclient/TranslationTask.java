@@ -1,6 +1,6 @@
 package com.example.messageclient;
 
-import translation.TranslationData;
+import translation.TranslationGroup;
 import translation.TranslationDbHelper;
 import translation.TranslationHttpClient;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class TranslationTask extends AsyncTask<String, String, TranslationData>{
+public class TranslationTask extends AsyncTask<String, String, TranslationGroup>{
 	
 	TranslationAlertDialog dlog;
 	private Context context;
@@ -27,7 +27,7 @@ public class TranslationTask extends AsyncTask<String, String, TranslationData>{
 	}
 	
 	@Override
-	protected TranslationData doInBackground(String... params) {
+	protected TranslationGroup doInBackground(String... params) {
 		// int count = params.length;
 		WriteMessageActivity activity =(		WriteMessageActivity) context;
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -43,7 +43,7 @@ public class TranslationTask extends AsyncTask<String, String, TranslationData>{
 		return client.translateAFew(from, dest, params[0]);
 	}
 	
-	protected void onPostExecute(TranslationData result){
+	protected void onPostExecute(TranslationGroup result){
 		//String ss = MainActivity.th3is.dest;
 		  TranslationDbHelper db = new TranslationDbHelper(context);
 	      db.addTranslation(result);
