@@ -1,4 +1,4 @@
-package translation;
+package com.chrisrgibb.translate;
 
 public class Meaning {
 

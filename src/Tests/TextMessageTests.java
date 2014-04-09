@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.example.messageclient.TextMessage;
-import com.example.messageclient.TextMessageWord;
+import com.chrisrgibb.taptouchtranslate.TextMessage;
+import com.chrisrgibb.taptouchtranslate.TextMessageWord;
 
 public class TextMessageTests {
 

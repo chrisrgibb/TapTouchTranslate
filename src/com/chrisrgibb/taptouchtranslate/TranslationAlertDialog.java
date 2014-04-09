@@ -1,10 +1,11 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
-import translation.TranslationGroup;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.chrisrgibb.translate.TranslationGroup;
 
 public class TranslationAlertDialog extends AlertDialog {
 	String translation;

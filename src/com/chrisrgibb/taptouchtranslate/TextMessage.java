@@ -1,4 +1,4 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
 import java.text.BreakIterator;
 import java.util.LinkedList;

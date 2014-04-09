@@ -1,4 +1,4 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

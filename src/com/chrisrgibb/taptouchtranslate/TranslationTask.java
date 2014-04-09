@@ -1,8 +1,9 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
-import translation.TranslationGroup;
-import translation.TranslationDbHelper;
-import translation.TranslationHttpClient;
+import com.chrisrgibb.translate.TranslationDbHelper;
+import com.chrisrgibb.translate.TranslationGroup;
+import com.chrisrgibb.translate.TranslationHttpClient;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;

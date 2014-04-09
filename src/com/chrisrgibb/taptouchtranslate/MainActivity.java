@@ -1,4 +1,4 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+//import com.example.messageclient.R;
+import com.chrisrgibb.taptouchtranslate.R;
 
 public class MainActivity extends Activity {
 	Button button;
@@ -61,7 +64,6 @@ public class MainActivity extends Activity {
 				startActivity(i);
 				break;
 		}
-		
 		return false;
 	}
 	

@@ -37,7 +37,7 @@
         android:text="Enter SMS Message : "
         android:textAppearance="?android:attr/textAppearanceLarge" />
  
-    <com.example.messageclient.MessageEditText
+    <com.chrisrgibb.taptouchtranslate.MessageEditText
         android:id="@+id/editTextSMS"
         android:textIsSelectable="true"
         android:hint="enter text"

@@ -7,8 +7,9 @@ import static org.junit.Assert.assertTrue;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import translation.TranslationGroup;
-import translation.TranslationHttpClient;
+import com.chrisrgibb.translate.TranslationGroup;
+import com.chrisrgibb.translate.TranslationHttpClient;
+
 
 
 public class TestTranslation {

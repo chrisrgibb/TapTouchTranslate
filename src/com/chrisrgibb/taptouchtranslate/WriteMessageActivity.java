@@ -1,4 +1,4 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
 import android.app.Activity;
 import android.os.Bundle;

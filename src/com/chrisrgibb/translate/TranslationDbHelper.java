@@ -1,4 +1,4 @@
-package translation;
+package com.chrisrgibb.translate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 	
 	public static final String DATABASE_NAME =  "translationDB";
 	private static final String DATABASE_TABLE ="translations";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	
 	private static final String KEY_ID     = "id";

@@ -1,9 +1,10 @@
-package com.example.messageclient;
+package com.chrisrgibb.taptouchtranslate;
 
 import java.util.List;
 
-import translation.TranslationGroup;
-import translation.TranslationDbHelper;
+import com.chrisrgibb.translate.TranslationDbHelper;
+import com.chrisrgibb.translate.TranslationGroup;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
