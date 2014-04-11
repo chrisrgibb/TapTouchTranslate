@@ -17,6 +17,13 @@
         android:text="Enter Phone Number : "
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
+    <Spinner 
+        android:id="@+id/contactSpinner"
+        android:layout_width="wrap_content"
+        android:text="spinners"
+        android:layout_height="wrap_content"
+        />
+    
 
     <EditText
         android:id="@+id/editTextPhoneNo"

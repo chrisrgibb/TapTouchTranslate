@@ -1,7 +1,14 @@
 package com.chrisrgibb.taptouchtranslate;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.text.Layout;
 import android.view.ContextMenu;
@@ -10,11 +17,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
+@SuppressLint("InlinedApi")
 public class WriteMessageActivity extends Activity {
 	
 	EditText phoneNumber;
@@ -28,7 +38,9 @@ public class WriteMessageActivity extends Activity {
 	SmsManager smsManager;
 	boolean testing = true;
 	String from;
-	String dest;
+	String dest; 
+	private Spinner contactSpinner;
+	private Cursor mContactCursor;
 	
 	
 	
@@ -43,11 +55,11 @@ public class WriteMessageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_message);
 		
+		setSpinner();
+		
+		
 		from = this.getIntent().getStringExtra("FROM");
 		dest = this.getIntent().getStringExtra("DEST");
-		System.out.println(from);
-		System.out.println(dest);
-		
 		textmess = new TextMessage();
 		
 		phoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
@@ -61,115 +73,130 @@ public class WriteMessageActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 
 				switch (event.getAction()) {
-				case (MotionEvent.ACTION_DOWN):
-					countOnTouch++; // for debuggin
-					break;
-				case (MotionEvent.ACTION_UP):
-					countOnTouch = 0;
-					break;
+					case (MotionEvent.ACTION_DOWN):
+						countOnTouch++; // for debuggin
+						break;
+					case (MotionEvent.ACTION_UP):
+						countOnTouch = 0;
+						break;
 				}
-
 				return false;
 			}
-
 		});
-		
-		sendButton.setOnClickListener(new OnClickListener(){
-			
+		//  Click to send message
+		sendButton.setOnClickListener(new OnClickListener(){		
 			@Override
 			public void onClick(View v){
-				String phoneNo = phoneNumber.getText().toString();
+//				String phoneNo = phoneNumber.getText().toString();
+				String phoneNo = getPhoneNumber();
+				if(phoneNo.equals("")){
+					// THROW ERRORRR
+					return;
+				}
 				String message = writeMessage.getText().toString();
-				
-			
 				smsManager = SmsManager.getDefault();
 				smsManager.sendTextMessage(phoneNo, null, message, null, null);
 				Toast.makeText(getApplicationContext(), "SMS Sent!",
-						Toast.LENGTH_LONG).show();
-				
-			}
-					
+						Toast.LENGTH_LONG).show();	
+			}		
 		});
-		
-		
 	}
 	
+	
+	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		String word = writeMessage.getSelectedWord();
 		if(word.length() == 0){
 			// word not selected, just selected empty space
-			
 		}
 
 		menu.clear(); // remove every item on contextMenu
 		menu.add(0, 0, 0, "Lookup \'" + word + "\'");
 		menu.setHeaderTitle("MENU FOOL");
-		
 	}
 	
 	
 	@Override
 	public boolean onContextItemSelected(MenuItem item){
-		if(item.getItemId()==0){
-			
+		if(item.getItemId()==0){			
 			getTranslate(writeMessage.getSelectedWord());
-			
 		}
-		writeMessage.setSelection(0);		
-		
+		writeMessage.setSelection(0);				
 		return false;
 	}
 	
+	
+	/*
+	 * Private Methods
+	 */
+	
+	/**
+	 * Creates a new Async Task to get translation from http request
+	 * @param phrase
+	 */
 	private void getTranslate(String phrase){
-		
 		new TranslationTask(this).execute(phrase);
-		
-		
 	}
 	
-//	private void getTranslate(String phrase){
-//		String translateString= "test";
-//		if(testing){
-//			translateString = "In test Mode";
-//			
-//		}else{
-//			
-//		
-//			String from = CountryCodes.ENGLISH;
-//			//String dest = CountryCodes.CHINESE_MANDARIN;
-//			String dest = CountryCodes.FRENCH;
-//		
-//			TranslationHttpClient client = new TranslationHttpClient();
-//			
-//			TranslationData translation = client.translateAFew(from, dest, phrase);
-//			//String translateString = translation.getTranslations().get(0).getPhrase().toString();
-//			translateString = translation.getFirstAvailablePhrase();
-//		}
-//		
-//		StringBuilder builder = new StringBuilder();
-//		builder.append(translateString);
-//		builder.append("\n");
-//			
-//		
-////		AlertDialog dialog = new AlertDialog.Builder(this)
-////						.setMessage(builder.toString())
-////						.setCancelable(true).create();
-////		dialog.show();
-//		TranslationAlertDialog dlog = new TranslationAlertDialog(this, builder.toString());
-//		Window window = dlog.getWindow();
-//		window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-//		window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND); // get rid of greyed out background
-//        window.setGravity(Gravity.TOP); 
-//        int w = window.getAttributes().width;
-//        System.out.println("Window width = " + w);
-//		dlog.show();
-//
-//	}
+	/**
+	 * Initializes the contacts list.
+	 */
+	private void setSpinner(){
+		ContentResolver cr =getContentResolver();
+		mContactCursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+		// could make a new contactclass ?
+		List<String> contacts = new ArrayList<String>();
+		if(mContactCursor.getCount() > 0){
+			while(mContactCursor.moveToNext()) {
+				String id   = mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts._ID));
+				String name = mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME )); 
+				if(Integer.parseInt(mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0){
+					Cursor pcur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+							ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
+							new String[]{id}, null);
+					while(pcur.moveToNext()) {
+						//String phoneNo = pcur.getString(pcur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)); 
+						contacts.add(name);
+					}
+					pcur.close();
+				}
+			}
+		}
+		contactSpinner = (Spinner) findViewById(R.id.contactSpinner);
+		ArrayAdapter<String> contactAdapter = new ArrayAdapter<String>(WriteMessageActivity.this, android.R.layout.simple_spinner_dropdown_item, contacts);
+		contactSpinner.setAdapter(contactAdapter);
 	
+	}
 	
+	private String getPhoneNumber(){
+		String name = contactSpinner.getSelectedItem().toString();
+		ContentResolver cr = getContentResolver();
+		mContactCursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+		if(mContactCursor.getCount() > 0){
+			while(mContactCursor.moveToNext()) {
+				String contactName = mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME )); 
+				if(name.equals(contactName)){
+					String id   = mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts._ID));
+					if(Integer.parseInt(mContactCursor.getString(mContactCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0){
+						Cursor pcur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+								ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
+								new String[]{id}, null);
+						while(pcur.moveToNext()) {
+							String phoneNo = pcur.getString(pcur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+							mContactCursor.close();
+							return phoneNo;
+						}
+					}
+					
+					
+				}
+			}
+		}
+		mContactCursor.close();
+		return "";
+	}
+		
 	
 	
 	int getOffset(MotionEvent event, EditText ed) {
