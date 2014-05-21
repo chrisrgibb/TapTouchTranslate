@@ -37,9 +37,7 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 
 	@Override
 	public boolean onLongClick(View v) {
-		System.out.println("onLongClick from MessageEditText");
 		setSelectionOfWord();
-		//System.out.println(getLastDownPositionX() + "  " + offset );
 		return false;
 	}
 	
@@ -50,8 +48,6 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 	
 	public String getSelectedWord(){
 		TextMessage tm = getMessageText();
-		System.out.println(this.getSelectionStart() + " > " +this.getSelectionEnd() );
-		
 		return tm.getWordAtIndex(getOffsetForLastDownPosition());
 	}
 	
@@ -64,9 +60,6 @@ public class MessageEditText extends EditText implements OnLongClickListener {
 		if(start > -1 && end > -1){
 			this.setSelection(start, end);
 		}
-	
-//		this.setSelection(tm.getWordStartOffset(index),	tm.getWordEndOffset(index));
-		// THis is going to select the word on long press
 	}
 	
 	@Override

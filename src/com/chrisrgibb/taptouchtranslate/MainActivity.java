@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("=====================MAIN ACTIVITY ON CREATE=====================");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		button = (Button) findViewById(R.id.button_write_message);

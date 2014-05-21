@@ -27,18 +27,15 @@ import android.widget.Toast;
 @SuppressLint("InlinedApi")
 public class WriteMessageActivity extends Activity {
 	
-	EditText phoneNumber;
-	MessageEditText writeMessage;
-	Button sendButton;
-	CharSequence wordToLookup = " f";
-	int touchX;
-	int touchY;
-	TextMessage textmess;
+	private EditText phoneNumber;
+	private MessageEditText writeMessage;
+	private Button sendButton;
+	private CharSequence wordToLookup = " f";
+//	private int touchX;
+//	private int touchY;
 	int countOnTouch = 0;
-	SmsManager smsManager;
+	private SmsManager smsManager;
 	boolean testing = true;
-	String from;
-	String dest; 
 	private Spinner contactSpinner;
 	private Cursor mContactCursor;
 	
@@ -51,16 +48,13 @@ public class WriteMessageActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("ONCREATE WRITE ACTIVITY");
+//		System.out.println("ONCREATE WRITE ACTIVITY");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_message);
 		
 		setSpinner();
 		
-		
-		from = this.getIntent().getStringExtra("FROM");
-		dest = this.getIntent().getStringExtra("DEST");
-		textmess = new TextMessage();
+
 		
 		phoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
 		writeMessage = (MessageEditText) findViewById(R.id.editTextSMS);
@@ -71,7 +65,6 @@ public class WriteMessageActivity extends Activity {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-
 				switch (event.getAction()) {
 					case (MotionEvent.ACTION_DOWN):
 						countOnTouch++; // for debuggin
@@ -87,7 +80,6 @@ public class WriteMessageActivity extends Activity {
 		sendButton.setOnClickListener(new OnClickListener(){		
 			@Override
 			public void onClick(View v){
-//				String phoneNo = phoneNumber.getText().toString();
 				String phoneNo = getPhoneNumber();
 				if(phoneNo.equals("")){
 					// THROW ERRORRR
@@ -113,7 +105,7 @@ public class WriteMessageActivity extends Activity {
 
 		menu.clear(); // remove every item on contextMenu
 		menu.add(0, 0, 0, "Lookup \'" + word + "\'");
-		menu.setHeaderTitle("MENU FOOL");
+		menu.setHeaderTitle("Look up message");
 	}
 	
 	
@@ -125,7 +117,6 @@ public class WriteMessageActivity extends Activity {
 		writeMessage.setSelection(0);				
 		return false;
 	}
-	
 	
 	/*
 	 * Private Methods
@@ -168,8 +159,12 @@ public class WriteMessageActivity extends Activity {
 		contactSpinner.setAdapter(contactAdapter);
 	
 	}
-	
+	/**
+	 * search through contacts to get phone number
+	 * @return the number or empty string
+	 */
 	private String getPhoneNumber(){
+		
 		String name = contactSpinner.getSelectedItem().toString();
 		ContentResolver cr = getContentResolver();
 		mContactCursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
@@ -188,12 +183,11 @@ public class WriteMessageActivity extends Activity {
 							return phoneNo;
 						}
 					}
-					
-					
 				}
 			}
 		}
 		mContactCursor.close();
+		// return empty string as default
 		return "";
 	}
 		

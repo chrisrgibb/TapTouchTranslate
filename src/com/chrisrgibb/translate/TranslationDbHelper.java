@@ -156,16 +156,13 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 				Translation t = new Translation();
 				t.addPhrase(new Phrase( cursor.getString(1), "" ) );
 				t.addMeaning(new Meaning(cursor.getString(2), "") );
-				
-				
+					
 				ArrayList<Translation> translationarray  = new ArrayList<Translation>();
 				translationarray.add(t);
 				data.addTranslation(translationarray);
 				
 				translations.add(data);
-			}while(cursor.moveToNext());
-			
-			
+			}while(cursor.moveToNext());		
 		}
 		cursor.close();
 		return translations;
