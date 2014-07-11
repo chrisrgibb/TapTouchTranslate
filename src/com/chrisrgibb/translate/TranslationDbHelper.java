@@ -36,7 +36,6 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
 		System.out.println("DB ONCREATE");
 		String CREATE_TRANSLATION_TABLE = "CREATE TABLE " + DATABASE_TABLE + 
 				" ( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -125,11 +124,12 @@ public class TranslationDbHelper extends SQLiteOpenHelper {
 		 db.close();	 
 		return translation;	 
 	}
-	
+	/**
+	 * Method for testing
+	 */
 	public void printDataBase(){
 		List<TranslationGroup> trannys = this.getAllTranslations();
 		for(TranslationGroup d : trannys){
-			
 			System.out.println(d.toString() );
 		}
 		

@@ -47,7 +47,14 @@ public class TranslationHttpClient {
 		return URL;	
 	}
 	
-	
+	/**
+	 * connects to the glosbe API and returns a translationGroup Object 
+	 * containing a collection of Translations 
+	 * @param from
+	 * @param dest
+	 * @param phrase
+	 * @return
+	 */
 	public TranslationGroup translateAFew(String from, String dest, String phrase){
 
 		String url = this.composeURL(from, dest, phrase);
@@ -84,19 +91,7 @@ public class TranslationHttpClient {
 		return new TranslationGroup(new JSONObject());
 	}
 	
-	/**
-	 * Set the language to translate to
-	 * doesn't do anything
-	 * @param lang
-	 */
-	public void setDestLang(String lang){
-		System.out.println("setDestLang doesnt do anything!!!!" );
-	}
-	
-	public void init(){
-		 
-	}
-	
+
 
 	
 		

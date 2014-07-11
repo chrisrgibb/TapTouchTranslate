@@ -59,14 +59,13 @@ public class TranslationGroup {
 	 */
 	 
 	public String getMeaning(int index){
-		// TODO make a better system for retreiving meanings
+		// TODO make a better system for retrieving meanings
 		String text = translations.get(index).getMeanings().get(index).text;		
 		return text;
 	}
 	
 	
 	private void createJSONobjects(){
-		//if(this.jsonObject instanceOf)
 		int containsCount = 0;
 		if(this.jsonObject.isEmpty()){
 			return ;
@@ -102,10 +101,7 @@ public class TranslationGroup {
 				
 				containsCount++;
 			}
-		
-		//	this.translations.add(translationJAVA);
 		}
-//		System.out.println("contains count = " +containsCount );
 	}
 	
 	public ArrayList<Translation> getTranslations(){
@@ -125,7 +121,6 @@ public class TranslationGroup {
 		for(Translation t: translations){
 			for(Meaning m : t.meanings){
 				return m.text;
-//				System.out.println(m.text);
 			}
 		}
 		return "No Meaning Available";
